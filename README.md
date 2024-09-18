@@ -1,3 +1,24 @@
+# EBAC Repositories
+
+1. [EBAC Unity Modules 0 to 8 - Unity initial](https://github.com/TonGarcia/EBAC-Unity)
+2. [EBAC Unity Modules 9 to 19 - Platform 2D](https://github.com/TonGarcia/Platform2D-EBAC-Unity)
+3. [EBAC Unity Modules 20 to 26 - HyperCasual Mobile](https://github.com/TonGarcia/HyperCasual)
+4. [EBAC Unity Module 27 - Editor PlugIns](https://github.com/TonGarcia/UnityEditorUIPlugins-EBAC)
+5. [EBAC Unity 3D Module 28 ~ 40](https://github.com/TonGarcia/3D-Unity-EBAC)
+
+
+# Unity 3D
+
+## Game Requirements
+
+1. At least 1 player character including integrated animations: walking, jump, die, attack;
+2. coins and/or collectable items on the level;
+3. trunk and others destroyable items that drops collectables;
+4. diversified enemies behaviors;
+5. at least 1 simple boss.
+
+
+
 # UnityTemplate
 1. [Unity GitHub Repo Template](https://github.com/TonGarcia/UnityTemplate)
 2. [Unity GitLab GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
