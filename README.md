@@ -17,7 +17,27 @@
 4. diversified enemies behaviors;
 5. at least 1 simple boss.
 
+## State Machine - GameManager
 
+1. States:
+   1. State Menu (UI before GamePlay)
+   2. State Game (GamePlay)
+      1. methods/sub-state
+         1. State OnEnter (just once)
+            1. Activate GameObjects
+            2. Zero/reset GameManager counters
+            3. Animate the initial idle state for each GameObject
+            4. Load save 
+         2. State OnUpdate (loop just like Unity default Update)
+            1. The running Game method 
+         3. State OnExit
+            1. pause all controls
+            2. kill all still alive enemies
+            3. check WinCondition
+            4. prepare and save achievements
+            5. move to next state
+   3. State Lose > State Try Again > State Game
+   4. State Win > BackMenu
 
 # UnityTemplate
 1. [Unity GitHub Repo Template](https://github.com/TonGarcia/UnityTemplate)
