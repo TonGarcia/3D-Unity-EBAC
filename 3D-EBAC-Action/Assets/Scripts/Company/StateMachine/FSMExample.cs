@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Company.StateMachine;
 
 // FSM = Finish StateMachine
 public class FSMExample : MonoBehaviour

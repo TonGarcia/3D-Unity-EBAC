@@ -39,6 +39,15 @@
    3. State Lose > State Try Again > State Game
    4. State Win > BackMenu
 
+The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string 
+
+# Rider BugFix
+
+To avoid file error while no source code on Rider, mainly when creating CustomEditors:
+1. Menu > File > Invalidate Caches... > select everything and let it restart and wait it checker to rerun
+
+*IF ToArray error, remember to add: `using System.Linq;`
+
 # UnityTemplate
 1. [Unity GitHub Repo Template](https://github.com/TonGarcia/UnityTemplate)
 2. [Unity GitLab GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
