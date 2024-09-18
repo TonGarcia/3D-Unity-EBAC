@@ -5,66 +5,41 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using NaughtyAttributes;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine<T> where T : System.Enum
 {
 
-    public enum States
-    {
-        NONE,
-        // IDLE,
-        // RUNNING,
-        // DEAD
-    }
-
-    public Dictionary<States, StateBase> dictionaryState;
+    public Dictionary<T, StateBase> dictionaryState;
 
     private StateBase _currentState;
     public float timeToStartGame = 1f;
+
+    public StateBase CurrentState
+    {
+        get { return _currentState; }
+    }
     
-    private void Awake()
+    public void Init()
     {
-        dictionaryState = new Dictionary<States, StateBase>();
-        // dictionaryState.Add(States.IDLE, new StateBase());
-        // dictionaryState.Add(States.RUNNING, new StateRunning());
-        // dictionaryState.Add(States.DEAD, new StateDead());
-        
-        //dictionaryState[States.DEAD]
-        // SwitchState(States.IDLE);
-        SwitchState(States.NONE);
-        
-        Invoke(nameof(StartGame), timeToStartGame);
+        dictionaryState ??= new Dictionary<T, StateBase>();
+    }
+    
+    public void RegisterStates(T enumType, StateBase state)
+    {
+        dictionaryState.Add(enumType, state);
     }
 
-    [Button]
-    private void StartGame()
-    {
-        // SwitchState(States.RUNNING);
-        SwitchState(States.NONE);
-    }
-
-    private void SwitchState(States state)
+    public void SwitchState(T state)
     {
         if(_currentState != null) _currentState.OnStateExit();
         _currentState = dictionaryState[state];
         _currentState.OnStateEnter();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if(_currentState != null) _currentState.OnStateStay();
         
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            // SwitchState(States.DEAD);
-            SwitchState(States.NONE);
-        }
     }
 
 #if UNITY_EDITOR
@@ -73,13 +48,13 @@ public class StateMachine : MonoBehaviour
     [Button]
     private void ChangeStateToX()
     {
-        SwitchState(States.NONE);
+        // SwitchState(States.NONE);
     }
     
     [Button]
     private void ChangeStateToY()
     {
-        SwitchState(States.NONE);
+        // SwitchState(States.NONE);
     }
     
     #endregion
