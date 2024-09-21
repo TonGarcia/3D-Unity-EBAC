@@ -39,7 +39,17 @@
    3. State Lose > State Try Again > State Game
    4. State Win > BackMenu
 
-The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string 
+The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string. She must not be able to open the bag while on a string, but the camera and other controls will be enabled. 
+
+### Challenge Module 28
+
+Cena principal: `Scenes/SCN_Main_3D`
+Andar pra frente: pressione W
+   --> tem um OnExit para parar de andar
+Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
+Pular (module29): pressione BarraDeEspaço
+
+*Controlados por StateMachine
 
 # Rider BugFix
 
