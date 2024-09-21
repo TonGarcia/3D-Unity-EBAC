@@ -41,7 +41,7 @@
 
 The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string. She must not be able to open the bag while on a string, but the camera and other controls will be enabled. 
 
-### Challenge Module 28
+### Challenge Module 28~29
 
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
@@ -50,6 +50,27 @@ Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do id
 Pular (module29): pressione BarraDeEspaço
 
 *Controlados por StateMachine
+
+
+## Mecanim (Module 29 - animation)
+
+1. Asset: Assets / Art / 3D Astronaut / Model / MDL_Astronaut
+2. Rig: is how the Mesh works on the Skeleton(Rig) while running animations -> rigging = add bones and edges
+3. **IMOPRTANT**: the animation RIG_TYPE and the model RIG_TYPE must be the same, example value/type: Generic
+4. Animation Preview:
+   1. left mouse button = move the camera just forward and backward
+   2. center/scroll mouse button = move the camera just forward and backward
+   3. right mouse butto = move in the camera in perspective
+5. MECANIM = ANIMATOR inspector element (if ANIMATION it is the Legacy)
+6. `HasExitTime`: on animator means to wait the animation to finish to change to another animation. In case of `run <> idle` it is bad due it looks like a delay
+7. `BlendTree`: open Animator and right click > Create State > From New Blend Tree
+   1. double click on the created component to open it
+   2. select the opened BlendTree and on the Inspector create 2 **Add Motion Field**
+   3. --> it creates the animation smooth change
+      1. 0.3 ~> it smothly change
+      2. 1 ~> it change animation straight (no transaction time)
+      3. 0.5 ~> it plays half time one animation and half time another animation
+
 
 # Rider BugFix
 
