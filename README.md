@@ -42,15 +42,26 @@
 
 The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string. She must not be able to open the bag while on a string, but the camera and other controls will be enabled. 
 
-### Challenge Module 28~29
+### Challenge Module 28
 
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
    --> tem um OnExit para parar de andar
-Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
-Pular (module29): pressione BarraDeEspaço
-
+1. ✅ Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
+1. ✅ Pular (module29): pressione BarraDeEspaço
 *Controlados por StateMachine
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module28
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
+
+
+### Challenge Module 29
+
+1. ✅ Os comandos AWSD estão funcionando com o Character Controller
+2. ✅ As animações foram adicionadas e com transição com o BlendTree
+3. ✅ Ao pressionar shift o personagem corre
+4. ✅ Ao pressionar barra de espaço o personagem pula, caso esteja no chão
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module29
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
 
 
 ## Mecanim (Module 29 - animation)
