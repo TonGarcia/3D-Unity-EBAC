@@ -10,6 +10,7 @@ namespace Player
         public CharacterController characterController;
         public Animator animator;
         public KeyCode jumpKeyCode = KeyCode.Space;
+        public KeyCode runKeyCode = KeyCode.LeftShift;
         #endregion
 
         #region Speed Modifier Attributes
@@ -19,6 +20,7 @@ namespace Player
         private float _vSpeed = 0f;
         private static readonly int Run = Animator.StringToHash("Run");
         public float jumpForceSpeed = 15f;
+        public float runSpeed = 1.5f;
         #endregion
 
         // Start is called before the first frame update
@@ -38,9 +40,6 @@ namespace Player
             // calculating speed vector to next point to be moved to based on speed & "move force based on InputAxis" 
             var speedVector = transform.forward * inputAxisVertical * speed;
 
-            // activate the animations by changing the Parameter values
-            animator.SetBool("Run", inputAxisVertical != 0);
-
             if(characterController.isGrounded)
             {
                 _vSpeed = 0;
@@ -53,7 +52,26 @@ namespace Player
             // calculating the speed considering the time elapsed (not by frame) & GRAVITY force
             _vSpeed -= gravity * Time.deltaTime;
             speedVector.y = _vSpeed;
+
+            var isWalking = inputAxisVertical != 0;
+            if(isWalking)
+            {
+                // GetKey = pressing ; GetKeyDown = when start a click (not track pressing) ; GetKeyUp = unpressed
+                if(Input.GetKey(runKeyCode))
+                {
+                    speedVector *= runSpeed; // update the GameObject move speed
+                    animator.speed = runSpeed; // update the Animator animation execution speed
+                }
+                else
+                {
+                    animator.speed = 1;
+                }
+            }
+            
             characterController.Move(speedVector * Time.deltaTime);
+            
+            // activate the animations by changing the Parameter values
+            animator.SetBool("Run", inputAxisVertical != 0);
         }
     }
 }
