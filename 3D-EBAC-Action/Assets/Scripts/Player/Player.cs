@@ -9,6 +9,7 @@ namespace Player
         #region Unity Reference Attributes
         public CharacterController characterController;
         public Animator animator;
+        public KeyCode jumpKeyCode = KeyCode.Space;
         #endregion
 
         #region Speed Modifier Attributes
@@ -17,7 +18,7 @@ namespace Player
         public float gravity = 9.8f;
         private float _vSpeed = 0f;
         private static readonly int Run = Animator.StringToHash("Run");
-
+        public float jumpForceSpeed = 15f;
         #endregion
 
         // Start is called before the first frame update
@@ -36,13 +37,23 @@ namespace Player
 
             // calculating speed vector to next point to be moved to based on speed & "move force based on InputAxis" 
             var speedVector = transform.forward * inputAxisVertical * speed;
+
+            // activate the animations by changing the Parameter values
+            animator.SetBool("Run", inputAxisVertical != 0);
+
+            if(characterController.isGrounded)
+            {
+                _vSpeed = 0;
+                if(Input.GetKeyDown(jumpKeyCode))
+                {
+                    _vSpeed = jumpForceSpeed;
+                }
+            }
+
             // calculating the speed considering the time elapsed (not by frame) & GRAVITY force
             _vSpeed -= gravity * Time.deltaTime;
             speedVector.y = _vSpeed;
             characterController.Move(speedVector * Time.deltaTime);
-            
-            // activate the animations by changing the Parameter values
-            animator.SetBool("Run", inputAxisVertical != 0);
         }
     }
 }
