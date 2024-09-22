@@ -96,6 +96,22 @@ Pular (module29): pressione BarraDeEspaço
    2. create a Boolean Run parameter
    3. create a transition from Idle to Run and another transition moving back from Run to Idle
    4. as there is a parameter trigger it is not necessary to set HasExitTime to be checked (so uncheck it)
+5. **`Cinemachine`**:
+   1. Add/Import: Package Manager > Unity Registry > Cinemachine > install/update
+      1. after installation it should be at `Menu > Cinemachine` (2020) or `Menu > GameObject > Cinemachine` (2022)
+   2. For this kind of Game create a Virtual Camera. Type of Cameras:
+      1. **Cinemachine Virtual Camera**: A general-purpose camera that smoothly transitions between setups and behaviors. Example: Used to follow a player character in a 3D platformer or open-world game.
+      2. **Cinemachine FreeLook Camera**: A third-person camera allowing orbiting control around the player. Example: Used in action-adventure games like Assassin's Creed or The Legend of Zelda, where players control the camera around the character.
+      3. **Cinemachine 2D Camera**: Optimized for 2D games, keeping the camera locked to a specific plane. Example: Ideal for side-scrolling games like Celeste or Hollow Knight.
+      4. **Cinemachine ClearShot Camera**: Automatically picks the best camera angle based on visibility of the target. Example: Used in boss fights or cinematic sequences to choose the most dramatic viewpoint dynamically, often used in **`cutscenes`** or action-packed sequences.
+      5. **Cinemachine State-Driven Camera**: Switches between cameras based on game states or animations. Example: Perfect for games with complex animations, such as a fighting game where the camera changes based on attack or special move states.
+   3. Configuring it:
+      1. create a virtual camera
+      2. check the option: `Game Window Guides` (it displays how the camera was configured before the play mode)
+      3. `Save During Play`: check it as well, it save what was changed (on the camera config) on play mode
+      4. `Follow`: which object it will follow = `Player` (drag&drop)
+      5. `LookAt`: which object it will follow = `Player` (drag&drop)
+      6. *Check configs on the PDF: `./support-docs/Unity_M29_suporttmaterial_animacoes.pdf` page: 17+
 
 
 # Rider BugFix
