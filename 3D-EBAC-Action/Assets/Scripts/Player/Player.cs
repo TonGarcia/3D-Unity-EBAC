@@ -1,53 +1,48 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Company.Core;
-using Company.StateMachine;
 using UnityEngine;
 
-public class Player : Singleton<Player>
+namespace Player
 {
-    public StateMachine<PlayerStates> stateMachine;
-    private Animator _animator;
-    public enum PlayerStates
+    public class Player : MonoBehaviour
     {
-        IDLE,
-        JUMP,
-        RUN
-    }
+        #region Unity Reference Attributes
+        public CharacterController characterController;
+        public Animator animator;
+        #endregion
 
-    #region Unity Events
-    // Start is called before the first frame update
-    private void Start()
-    {
-        Init();
-    }
-    
-    // Update is called once per frame
-    public void Update()
-    {
-        if (Input.GetKey(KeyCode.W))
+        #region Speed Modifier Attributes
+        public float speed = 1f; // movements speed sensitive control
+        public float turnSpeed = 1f; // targeting sensitive control (if greater so faster, if lower it means slower)
+        public float gravity = 9.8f;
+        private float _vSpeed = 0f;
+        private static readonly int Run = Animator.StringToHash("Run");
+
+        #endregion
+
+        // Start is called before the first frame update
+        void Start()
         {
-            stateMachine.SwitchState(PlayerStates.RUN);
+        
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+
+        // Update is called once per frame
+        void Update()
         {
-            stateMachine.SwitchState(PlayerStates.IDLE);
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            stateMachine.SwitchState(PlayerStates.JUMP);
+            // how much the player is trying to move left or right (horizontal) -1 to 1
+            transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);
+            // how much the player is trying to move left or right (vertical) -1 to 1
+            var inputAxisVertical = Input.GetAxis("Vertical");
+
+            // calculating speed vector to next point to be moved to based on speed & "move force based on InputAxis" 
+            var speedVector = transform.forward * inputAxisVertical * speed;
+            // calculating the speed considering the time elapsed (not by frame) & GRAVITY force
+            _vSpeed -= gravity * Time.deltaTime;
+            speedVector.y = _vSpeed;
+            characterController.Move(speedVector * Time.deltaTime);
+            
+            // activate the animations by changing the Parameter values
+            animator.SetBool("Run", inputAxisVertical != 0);
         }
     }
-    #endregion
-    
-    public void Init()
-    {
-        _animator = GetComponent<Animator>();
-        stateMachine = new StateMachine<PlayerStates>(_animator);
-        stateMachine.Init();
-        stateMachine.RegisterAllStates("Player", Enum.GetValues(typeof(PlayerStates)), "State");
-        stateMachine.SwitchState(PlayerStates.IDLE);
-    }
-    
 }

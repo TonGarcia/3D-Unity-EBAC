@@ -6,6 +6,7 @@
 4. [EBAC Unity Module 27 - Editor PlugIns](https://github.com/TonGarcia/UnityEditorUIPlugins-EBAC)
 5. [EBAC Unity 3D Module 28 ~ 40](https://github.com/TonGarcia/3D-Unity-EBAC)
 
+*Simple Character controller example on Module 29.2
 
 # Unity 3D
 
@@ -70,6 +71,31 @@ Pular (module29): pressione BarraDeEspaço
       1. 0.3 ~> it smothly change
       2. 1 ~> it change animation straight (no transaction time)
       3. 0.5 ~> it plays half time one animation and half time another animation
+
+## 3D Character Controller
+
+1. Check the `Player.cs` code. 
+   1. Basically the condig vars are:
+      ```public float speed = 1f; // movements speed sensitive control
+         public float turnSpeed = 1f; // targeting sensitive control (if greater so faster, if lower it means slower)
+         public float gravity = 9.8f;
+         private float _vSpeed = 0f;```
+   2. The way they modify the behavior:
+      1. Rotate based on the amount of pressed button: `transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);`
+      2. Moving based on amount of pressed button: `var inputAxisVertical = Input.GetAxis("Vertical");`
+      3. Applying the pressed amount to calculate speedVector: `var speedVector = transform.forward * inputAxisVertical * speed;`
+      4. Applying gravity to modify how does it work: `_vSpeed -= gravity * Time.deltaTime;`
+      5. moving the character: `characterController.Move(speedVector * Time.deltaTime);`
+2. Add the Player script to the GameObject Player
+   1. for testing/prototyping add a cube as child GameObject Mesh instead of start using the stylized character
+   2. Add CharacterController (unity built-in native component)
+   3. Set (drag and drop) the component on the Player CharacterController attribute
+   4. GRAVITY: if set to -9.8 the gravity will be negative (it is pushing the object against the floor)
+4. ANIMATOR:
+   1. add the Run animation to the Animator
+   2. create a Boolean Run parameter
+   3. create a transition from Idle to Run and another transition moving back from Run to Idle
+   4. as there is a parameter trigger it is not necessary to set HasExitTime to be checked (so uncheck it)
 
 
 # Rider BugFix
