@@ -6,6 +6,7 @@
 4. [EBAC Unity Module 27 - Editor PlugIns](https://github.com/TonGarcia/UnityEditorUIPlugins-EBAC)
 5. [EBAC Unity 3D Module 28 ~ 40](https://github.com/TonGarcia/3D-Unity-EBAC)
 
+*Simple Character controller example on Module 29.2
 
 # Unity 3D
 
@@ -46,10 +47,83 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
    --> tem um OnExit para parar de andar
-Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
-Pular (module29): pressione BarraDeEspaço
-
+1. ✅ Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
+1. ✅ Pular (module29): pressione BarraDeEspaço
 *Controlados por StateMachine
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module28
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
+
+
+### Challenge Module 29
+
+1. ✅ Os comandos AWSD estão funcionando com o Character Controller
+2. ✅ As animações foram adicionadas e com transição com o BlendTree
+3. ✅ Ao pressionar shift o personagem corre
+4. ✅ Ao pressionar barra de espaço o personagem pula, caso esteja no chão
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module29
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
+
+
+## Mecanim (Module 29 - animation)
+
+1. Asset: Assets / Art / 3D Astronaut / Model / MDL_Astronaut
+2. Rig: is how the Mesh works on the Skeleton(Rig) while running animations -> rigging = add bones and edges
+3. **IMOPRTANT**: the animation RIG_TYPE and the model RIG_TYPE must be the same, example value/type: Generic
+4. Animation Preview:
+   1. left mouse button = move the camera just forward and backward
+   2. center/scroll mouse button = move the camera just forward and backward
+   3. right mouse butto = move in the camera in perspective
+5. MECANIM = ANIMATOR inspector element (if ANIMATION it is the Legacy)
+6. `HasExitTime`: on animator means to wait the animation to finish to change to another animation. In case of `run <> idle` it is bad due it looks like a delay
+7. `BlendTree`: open Animator and right click > Create State > From New Blend Tree
+   1. double click on the created component to open it
+   2. select the opened BlendTree and on the Inspector create 2 **Add Motion Field**
+   3. --> it creates the animation smooth change
+      1. 0.3 ~> it smothly change
+      2. 1 ~> it change animation straight (no transaction time)
+      3. 0.5 ~> it plays half time one animation and half time another animation
+
+## 3D Character Controller
+
+1. Check the `Player.cs` code. 
+   1. Basically the condig vars are:
+      ```public float speed = 1f; // movements speed sensitive control
+         public float turnSpeed = 1f; // targeting sensitive control (if greater so faster, if lower it means slower)
+         public float gravity = 9.8f;
+         private float _vSpeed = 0f;```
+   2. The way they modify the behavior:
+      1. Rotate based on the amount of pressed button: `transform.Rotate(0, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime, 0);`
+      2. Moving based on amount of pressed button: `var inputAxisVertical = Input.GetAxis("Vertical");`
+      3. Applying the pressed amount to calculate speedVector: `var speedVector = transform.forward * inputAxisVertical * speed;`
+      4. Applying gravity to modify how does it work: `_vSpeed -= gravity * Time.deltaTime;`
+      5. moving the character: `characterController.Move(speedVector * Time.deltaTime);`
+2. Add the Player script to the GameObject Player
+   1. for testing/prototyping add a cube as child GameObject Mesh instead of start using the stylized character
+   2. Add CharacterController (unity built-in native component)
+   3. Set (drag and drop) the component on the Player CharacterController attribute
+   4. GRAVITY: if set to -9.8 the gravity will be negative (it is pushing the object against the floor)
+4. ANIMATOR:
+   1. add the Run animation to the Animator
+   2. create a Boolean Run parameter
+   3. create a transition from Idle to Run and another transition moving back from Run to Idle
+   4. as there is a parameter trigger it is not necessary to set HasExitTime to be checked (so uncheck it)
+5. **`Cinemachine`**:
+   1. Add/Import: Package Manager > Unity Registry > Cinemachine > install/update
+      1. after installation it should be at `Menu > Cinemachine` (2020) or `Menu > GameObject > Cinemachine` (2022)
+   2. For this kind of Game create a Virtual Camera. Type of Cameras:
+      1. **Cinemachine Virtual Camera**: A general-purpose camera that smoothly transitions between setups and behaviors. Example: Used to follow a player character in a 3D platformer or open-world game.
+      2. **Cinemachine FreeLook Camera**: A third-person camera allowing orbiting control around the player. Example: Used in action-adventure games like Assassin's Creed or The Legend of Zelda, where players control the camera around the character.
+      3. **Cinemachine 2D Camera**: Optimized for 2D games, keeping the camera locked to a specific plane. Example: Ideal for side-scrolling games like Celeste or Hollow Knight.
+      4. **Cinemachine ClearShot Camera**: Automatically picks the best camera angle based on visibility of the target. Example: Used in boss fights or cinematic sequences to choose the most dramatic viewpoint dynamically, often used in **`cutscenes`** or action-packed sequences.
+      5. **Cinemachine State-Driven Camera**: Switches between cameras based on game states or animations. Example: Perfect for games with complex animations, such as a fighting game where the camera changes based on attack or special move states.
+   3. Configuring it:
+      1. create a virtual camera
+      2. check the option: `Game Window Guides` (it displays how the camera was configured before the play mode)
+      3. `Save During Play`: check it as well, it save what was changed (on the camera config) on play mode
+      4. `Follow`: which object it will follow = `Player` (drag&drop)
+      5. `LookAt`: which object it will follow = `Player` (drag&drop)
+      6. *Check configs on the PDF: `./support-docs/Unity_M29_suporttmaterial_animacoes.pdf` page: 17+
+
 
 # Rider BugFix
 
