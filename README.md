@@ -42,28 +42,6 @@
 
 The StateMachine will control the GameMode, like Lara Croft when on ground the animations and actions are different to when she is climbing a wall or holding a string. She must not be able to open the bag while on a string, but the camera and other controls will be enabled. 
 
-### Challenge Module 28
-
-Cena principal: `Scenes/SCN_Main_3D`
-Andar pra frente: pressione W
-   --> tem um OnExit para parar de andar
-1. ✅ Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
-1. ✅ Pular (module29): pressione BarraDeEspaço
-*Controlados por StateMachine
-Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module28
-Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
-
-
-### Challenge Module 29
-
-1. ✅ Os comandos AWSD estão funcionando com o Character Controller
-2. ✅ As animações foram adicionadas e com transição com o BlendTree
-3. ✅ Ao pressionar shift o personagem corre
-4. ✅ Ao pressionar barra de espaço o personagem pula, caso esteja no chão
-Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module29
-Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
-
-
 ## Mecanim (Module 29 - animation)
 
 1. Asset: Assets / Art / 3D Astronaut / Model / MDL_Astronaut
@@ -123,6 +101,47 @@ Estou enviando também o projeto zipado, pois tivemos problemas com o github em 
       4. `Follow`: which object it will follow = `Player` (drag&drop)
       5. `LookAt`: which object it will follow = `Player` (drag&drop)
       6. *Check configs on the PDF: `./support-docs/Unity_M29_suporttmaterial_animacoes.pdf` page: 17+
+
+## Creating Guns/Weapons
+
+1. The Scripts:
+   1. `GunBase`: it is the configuration for the Gun concept
+   2. `Projectile`: it is the configuration for the object that is spwaned and shot by the Gun
+   3. `CombatSystem`: it is the folder, so `Gun` is a inner folder due it is an example of **CombatSystem**
+2. Hierarchy GameObjects:
+   1. **Cube** (renamed to Gun) = where/what is the Gun Mesh/location -> it receives the `GunBaseScript` component
+      1. **Empty GameObject** = child GameObject, this must be dragged and dropped on the `ShootSpawn`/`GunLocation`
+   2. **Projectile** GameObject receives `ProjectileBase` Script
+      1. **Sphere**: GameObject as Projectile GameObject child and it will be the "projectile" mesh
+   3. *Delete the **PFB_Projectile** from the Hierarchy to Drag&Drop it into the GunBase Script attribute (at **Gun** game object)
+   4. *Move the Gun gameobject into the player game object, reset it position and move to the play it is the player body place
+   5. *Take a look on the shoot if it is rotating accordingly with the player rotation (it could be a object inside Player>PFB_Astronaut so when Player rotate it would follow, but on the script work as well)
+
+# Challenges
+
+### Challenge Module 28
+
+Cena principal: `Scenes/SCN_Main_3D`
+Andar pra frente: pressione W
+   --> tem um OnExit para parar de andar
+1. ✅ Parar/Idle: default, basta não fazer nada (ou pressionar S se travar fora do idle)
+1. ✅ Pular (module29): pressione BarraDeEspaço
+*Controlados por StateMachine
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module28
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
+
+
+### Challenge Module 29
+
+1. ✅ Os comandos AWSD estão funcionando com o Character Controller
+2. ✅ As animações foram adicionadas e com transição com o BlendTree
+3. ✅ Ao pressionar shift o personagem corre
+4. ✅ Ao pressionar barra de espaço o personagem pula, caso esteja no chão
+Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/tag/Module29
+Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
+
+
+### Challenge Module 30
 
 
 # Rider BugFix
