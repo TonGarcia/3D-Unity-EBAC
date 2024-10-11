@@ -154,6 +154,9 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
       4. The generated Inputs script will be configured on the Base as it will be inherited
       5. On the `PlayerAbilityBase.cs` create a attr `Inputs` which means the inputs created previously with the InputMap
       6. **IMPORTANT:** the NEW INPUT SYSTEM replace the Update KeyCode checking to trigger and the KeyCode change is made on Inputs file
+   5. Script about `GunShootLimits.cs`:
+      1. It inherited from `GunBase.cs`
+      2. It must overrid the coroutine that shoots to apply the limits before action
 
 # Challenges
 

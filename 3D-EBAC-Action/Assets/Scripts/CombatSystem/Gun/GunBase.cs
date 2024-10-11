@@ -45,7 +45,7 @@ namespace CombatSystem.Gun
          */
         #endregion
 
-        IEnumerator StartShooting()
+        protected virtual IEnumerator StartShooting()
         {
             while (true)
             {
@@ -54,7 +54,7 @@ namespace CombatSystem.Gun
             }
         }
 
-        private void Shoot()
+        protected void Shoot()
         {
             var projectile = Instantiate(prefabProjectile);
             projectile.transform.position = shootSpawn.position;
