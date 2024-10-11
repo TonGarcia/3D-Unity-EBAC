@@ -157,6 +157,10 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    5. Script about `GunShootLimits.cs`:
       1. It inherited from `GunBase.cs`
       2. It must overrid the coroutine that shoots to apply the limits before action
+      3. AVOID WHILE TRUE, IF UNITY CLOSE OR CRASH IT IS DUE WHILE TRUE AND HIERARCHY CHANGES WILL BE LOST
+      4. Check the control to avoid crash on GunShootLimit script
+   6. Script about different gun (`GunShootAngle.cs`):
+      1. **Check** the `PlayerAbilityShoot` to see how to rotate the guns automatically using currentGun
 
 # Challenges
 

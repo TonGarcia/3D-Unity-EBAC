@@ -10,6 +10,7 @@ namespace CombatSystem.Gun
         public Transform shootSpawn;
         public float coolDownShoots = 0.3f;
         public Transform playerDirectionReference;
+        public float speed = 50f;
         private Coroutine _currentCoroutine;
 
         #region UnityEvents
@@ -54,11 +55,12 @@ namespace CombatSystem.Gun
             }
         }
 
-        protected void Shoot()
+        protected virtual void Shoot()
         {
             var projectile = Instantiate(prefabProjectile);
             projectile.transform.position = shootSpawn.position;
             projectile.transform.rotation = shootSpawn.rotation;
+            projectile.speed = speed;
         }
 
         public void StartShoot()
