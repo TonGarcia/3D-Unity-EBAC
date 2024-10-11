@@ -104,7 +104,7 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 
 ## Creating Guns/Weapons
 
-1. The Scripts:
+1. The **Gun standalone Scripts**:
    1. `GunBase`: it is the configuration for the Gun concept
    2. `Projectile`: it is the configuration for the object that is spwaned and shot by the Gun
    3. `CombatSystem`: it is the folder, so `Gun` is a inner folder due it is an example of **CombatSystem**
@@ -116,6 +116,44 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    3. *Delete the **PFB_Projectile** from the Hierarchy to Drag&Drop it into the GunBase Script attribute (at **Gun** game object)
    4. *Move the Gun gameobject into the player game object, reset it position and move to the play it is the player body place
    5. *Take a look on the shoot if it is rotating accordingly with the player rotation (it could be a object inside Player>PFB_Astronaut so when Player rotate it would follow, but on the script work as well)
+3. Adding the **Gun to the Player** (check the script `PlayerAbilityBase.cs`):
+   1. The base create methods that must be overrided
+   2. **IMPORTANT:** check the `OnValidate` and it *race condition issue*
+   3. **NEW INPUT UNITY SYSTEM**: instead of using `Update()` KeyCode Down, Up... let's use:
+      1. Package Manager > Unity Registry > search by "Input System" > Install
+      2. IF error about "You are trying to read Input...": Build Settings > Player Settings > Player > Active Input Handling > select "Both"
+      3. Instead of `KeyCode` we will replace it by `InputAction` : check the script `PlayerAbilityShoot.cs`
+         1. Add the Script as a Component of the Player GameObject
+         2. On the component click on the `+` button and select `Add Bidding`
+         3. **Double click** on the created bidding item
+            1. `Path` attribute:
+               1. click on "`Listen`" so when click on the desired Key it will be displayed to be bidded
+                  1. **PS.:** in some resolution there is an error and the "Listen" button is behind the option list
+            2. `Interactions` attribute:
+               1. click on `+` button
+               2. **PS.:** it show a list of which interactions this biddind will be trigging, like the Bidding `X` **key** when `Press` do something, when `Hold`this **key** does something else
+         4. Check `PlayerAbilityShoot.cs` script, but the **IMPORTANT** thing is instead of `Update` it will be on the `Init()` override
+            1. To add an event to be handled it is appending functions to the "performed" in this code: `shootAction.performed += ctx => Shoot();` means:
+               1. `shootAction` InputAction object when `performed` it will call the method on the `ctx` (context as param) to the method `Shoot`
+            2. **PS.:** as Unity has Active/Enable and Disable GameObjects to show/hide objects, so the **UnityEvents** `OnEnable` and `OnDisable` avoid issues like when you press a key it fire the action when object is not enabled. If the player become a car so the actions outside car must be disabled, as example. The enable is necessary to be able to call the callback (appended event method) as well
+            3. The opposite of `performed` is the `canceled` so like pressing `spacebar` to fly, when unpressed `spacebar` the `.cancelled` callback will be called stop flying, as example.
+   4. **BEST ORGANIZATION FOR NEW INPUT SYSTEM**:
+      1. Create a new folder `Inputs` outside scripts
+      2. Create a new Asset (right click on the folder > Create) of the type Input Actions
+      3. Select the file on the project, the Inspector will update and click on the inspector the button "Edit Asset"
+         1. It will open a Window "Inputs (Input Actions)"
+         2. Action Maps = Game Maps (it could be by level, by scene...)
+            1. Create a `GamePlay` ActionMap
+            2. Rename (by double click) the created action to "Shoot"
+            3. Click the colapse button
+            4. select the "no bidding" element
+            5. Do the same **bidding** the `X` on `path` and set the `interaction`
+            6. Close the window and save
+         3. Check the checkbox "Generate C# Class" and click on the button "Apply" 
+            1. **IMPORATNT**: it generates the script including all the necessary changes including the Enable and Disable as above and so on, so we do not need to control it on our classes
+      4. The generated Inputs script will be configured on the Base as it will be inherited
+      5. On the `PlayerAbilityBase.cs` create a attr `Inputs` which means the inputs created previously with the InputMap
+      6. **IMPORTANT:** the NEW INPUT SYSTEM replace the Update KeyCode checking to trigger and the KeyCode change is made on Inputs file
 
 # Challenges
 

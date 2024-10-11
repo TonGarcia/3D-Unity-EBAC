@@ -12,25 +12,38 @@ namespace CombatSystem.Gun
         public Transform playerDirectionReference;
         private Coroutine _currentCoroutine;
 
-        private void Update()
+        #region UnityEvents
+        private void OnDestroy()
         {
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            if (_currentCoroutine != null)
             {
-                if (_currentCoroutine != null)
-                {
-                    StopCoroutine(_currentCoroutine);
-                }
-                _currentCoroutine = StartCoroutine(StartShooting());
-            }
-            else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                if (_currentCoroutine != null)
-                {
-                    StopCoroutine(_currentCoroutine);
-                    _currentCoroutine = null;
-                }
+                StopCoroutine(_currentCoroutine);
             }
         }
+        
+        /*
+         * This Update was replaaced by the NEW INPUT SYSTEM events instead of each frame validations
+        private void Update()
+           {
+               if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+               {
+                   if (_currentCoroutine != null)
+                   {
+                       StopCoroutine(_currentCoroutine);
+                   }
+                   _currentCoroutine = StartCoroutine(StartShooting());
+               }
+               else if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
+               {
+                   if (_currentCoroutine != null)
+                   {
+                       StopCoroutine(_currentCoroutine);
+                       _currentCoroutine = null;
+                   }
+               }
+           }
+         */
+        #endregion
 
         IEnumerator StartShooting()
         {
@@ -48,12 +61,21 @@ namespace CombatSystem.Gun
             projectile.transform.rotation = shootSpawn.rotation;
         }
 
-        private void OnDestroy()
+        public void StartShoot()
+        {
+            StopShoot();
+            _currentCoroutine = StartCoroutine(StartShooting());
+        }
+
+        public void StopShoot()
         {
             if (_currentCoroutine != null)
             {
                 StopCoroutine(_currentCoroutine);
+                _currentCoroutine = null;
             }
         }
+
+        
     }
 }
