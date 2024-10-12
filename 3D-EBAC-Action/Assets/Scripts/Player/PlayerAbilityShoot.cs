@@ -1,7 +1,5 @@
-using System;
 using CombatSystem.Gun;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player
 {

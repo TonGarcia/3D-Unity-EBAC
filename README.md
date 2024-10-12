@@ -161,6 +161,19 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
       4. Check the control to avoid crash on GunShootLimit script
    6. Script about different gun (`GunShootAngle.cs`):
       1. **Check** the `PlayerAbilityShoot` to see how to rotate the guns automatically using currentGun
+   7. Integrating UI with the Bullets Limits:
+      1. Add an Canva UI Image 
+      2. Position it and change anchor to be responsive
+      3. Change Image Type to "Filled" so Unity will treat it as "loading" (if circle it would look like a pizza)
+      4. Setup images to GameObject that was not there before: `UIGunUpdaters = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();`, it is like jQuery Selector, it is a bad practice due finding & loading complexity on hierarchy
+      5. **IMPORTANT**: if the filling image **wrong filling direction**: add `1 - math_calc` --> `uiImage.fillAmount = 1 - (current / max);`
+      6. **Reload Animated FILL IMAGE**: `UIGunUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));` check it on `GunShootLimit.cs` coroutine `IEnumerator RechargeCoroutine()`
+      7. Adding Canvas on the GamePlay (instead of UI Canvas):
+         1. create or duplicate as new canvas
+         2. remove canvas camera
+         3. change canvas `RenderMode` to `World Space`
+         4. place the canvas where want
+         5. *in this project it will be a canvas on player back it head
 
 # Challenges
 
