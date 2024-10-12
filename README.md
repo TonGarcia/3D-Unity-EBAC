@@ -201,6 +201,9 @@ Estou enviando também o projeto zipado, pois tivemos problemas com o github em 
 
 ### Challenge Module 30
 
+1. ✅ Adicionar 2 armas (MachineGun e ShotGun)
+2. ✅ MachineGun (✅ Tecla1): o intervalo entre as balas deve ser entre 0.2 segundos
+3. ✅ ShotGun (✅ Tecla2): tipo a Angle, só que com delay de 1 segundo
 
 # Rider BugFix
 
