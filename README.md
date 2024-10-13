@@ -175,10 +175,20 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
          4. place the canvas where want
          5. *in this project it will be a canvas on player back it head
 
+## Enemies
+
+1. Using events to trigger animations and state machine changes;
+2. Creating **SerializeField** to debug the current value on the EDITOR (it must be moved back to private to avoid errors);
+3. Created Legacy inut to debug on the Update method;
+4. OnDamage is implemented on the enemy(attacked), not on the player(attacker);
+5. --> Kill is not ToKill it is the enemy Death (fix on projects instead of on EBAC just to keep it suitable);
+6. 
+
+
+
 # Challenges
 
-### Challenge Module 28
-
+### Challenge Module 28 - Máquina de Estado
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
    --> tem um OnExit para parar de andar
@@ -189,8 +199,7 @@ Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/
 Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
 
 
-### Challenge Module 29
-
+### Challenge Module 29 - Animações e BlendTree
 1. ✅ Os comandos AWSD estão funcionando com o Character Controller
 2. ✅ As animações foram adicionadas e com transição com o BlendTree
 3. ✅ Ao pressionar shift o personagem corre
@@ -199,11 +208,13 @@ Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/
 Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
 
 
-### Challenge Module 30
-
+### Challenge Module 30 - Armas e New Input System
 1. ✅ Adicionar 2 armas (MachineGun e ShotGun)
 2. ✅ MachineGun (✅ Tecla1): o intervalo entre as balas deve ser entre 0.2 segundos
 3. ✅ ShotGun (✅ Tecla2): tipo a Angle, só que com delay de 1 segundo
+
+### Challenge Module 31 - Inimigos
+1. 
 
 # Rider BugFix
 
