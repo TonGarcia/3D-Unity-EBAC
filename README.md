@@ -180,9 +180,12 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 1. Using events to trigger animations and state machine changes;
 2. Creating **SerializeField** to debug the current value on the EDITOR (it must be moved back to private to avoid errors);
 3. Created Legacy inut to debug on the Update method;
-4. OnDamage is implemented on the enemy(attacked), not on the player(attacker);
+4. **OnDamage** is implemented on the enemy(attacked), not on the player(attacker);
 5. --> Kill is not ToKill it is the enemy Death (fix on projects instead of on EBAC just to keep it suitable);
-6. 
+6. **Spawn Animation**:
+   1. *It is using Born animation it should be named as Spawn animation as "Start" is already used in many wrong cases
+   2. There is a bool control var which could be used in case of changing the game processing levels like Low Resolution, High... to get **Performance** vs **Realism**
+7. Add a **BoxCollider** component to the enemy GameObject
 
 
 

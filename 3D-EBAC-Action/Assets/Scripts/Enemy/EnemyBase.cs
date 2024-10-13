@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace Enemy
 {
@@ -9,6 +10,11 @@ namespace Enemy
     {
         public float startLife = 10f;
         [SerializeField] private float _currentLife;
+
+        [Header("Spawn Animation")] 
+        public float startAnimationDuration = .2f;
+        public Ease startAnimationEase = Ease.OutBack;
+        public bool startWithBornAnimation = true;
 
         #region Unity Events
         private void Awake()
@@ -38,6 +44,7 @@ namespace Enemy
         protected virtual void Init()
         {
             ResetLife();
+            if (startWithBornAnimation) BornAnimation();
         }
 
         protected void ResetLife()
@@ -52,7 +59,6 @@ namespace Enemy
         #endregion
 
         #region Enemy Events
-
         protected virtual void OnKill()
         {
             Destroy(gameObject);
@@ -65,6 +71,14 @@ namespace Enemy
             {
                 Kill();
             }
+        }
+        #endregion
+
+        #region Animation
+
+        private void BornAnimation()
+        {
+            transform.DOScale(0, startAnimationDuration).SetEase(startAnimationEase).From();
         }
         #endregion
     }
