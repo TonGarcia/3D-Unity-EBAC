@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Animation;
 using UnityEngine;
 using DG.Tweening;
 
@@ -11,6 +9,9 @@ namespace Enemy
         public float startLife = 10f;
         [SerializeField] private float _currentLife;
 
+        [Header("Animation Transition")]
+        [SerializeField] private AnimationBase _animationBase;
+        
         [Header("Spawn Animation")] 
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
@@ -22,14 +23,6 @@ namespace Enemy
             Init();
         }
 
-        #endregion
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
         // Update is called once per frame
         void Update()
         {
@@ -39,6 +32,7 @@ namespace Enemy
                 OnDamage(5f);
             }
         }
+        #endregion
 
         #region Enemy Helpers
         protected virtual void Init()
@@ -61,7 +55,8 @@ namespace Enemy
         #region Enemy Events
         protected virtual void OnKill()
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 3f);
+            PlayAnimationByTrigger(AnimationType.DEATH);
         }
 
         public void OnDamage(float damage)
@@ -75,10 +70,14 @@ namespace Enemy
         #endregion
 
         #region Animation
-
         private void BornAnimation()
         {
             transform.DOScale(0, startAnimationDuration).SetEase(startAnimationEase).From();
+        }
+
+        public void PlayAnimationByTrigger(AnimationType animationType)
+        {
+            _animationBase.PlayAnimationByTrigger(animationType);
         }
         #endregion
     }

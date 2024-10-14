@@ -186,6 +186,18 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    1. *It is using Born animation it should be named as Spawn animation as "Start" is already used in many wrong cases
    2. There is a bool control var which could be used in case of changing the game processing levels like Low Resolution, High... to get **Performance** vs **Realism**
 7. Add a **BoxCollider** component to the enemy GameObject
+8. **ANIMATION**:
+   1. Select the PFB_Enemy GameObject > On the Inspector find the Animator > check the file referenced on the `Controller` attr of `Animator` component
+   2. Right click on the Animation and left click on `MAKE TRANSITION` > click on next Animation and it will create a transition arrow, click on the transition arrow and set the Trigger that will perform this change (Any State to Idle by Trigger Idle)... CREATE THE TRIGGERS to get it visible as options
+   3. *To check it working: Open `Animator` editor tab and check the desired animation
+   4. The **Scripts** animations Management will be implemented on the `Scripts/Animation/..cs`
+   5. --> bad smell on the animation change using loop
+   6. The `EnemyBase` method `OnKill` is waiting 3 seconds to destroy the object and while waiting it trigger the die animation:
+      1. `Destroy(gameObject, 3f);`
+      2. `PlayAnimationByTrigger(AnimationType.DEATH);`
+   7. **Avoid loop animation**:
+      1. Animator Tab (it can be acessed on `Project` tab or on the inspector `Component`)
+      2. Select (**double click**) the `Death` (or other animation) on Animator tab > uncheck `Loop Time` and `Loop Pose`
 
 
 
