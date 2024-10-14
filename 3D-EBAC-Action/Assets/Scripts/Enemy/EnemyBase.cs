@@ -1,11 +1,14 @@
 using Animation;
 using UnityEngine;
 using DG.Tweening;
+using Interfaces;
+using Unity.VisualScripting;
 
 namespace Enemy
 {
-    public class EnemyBase : MonoBehaviour
+    public class EnemyBase : MonoBehaviour, IDamageable
     {
+        public Collider collider;
         public float startLife = 10f;
         [SerializeField] private float _currentLife;
 
@@ -55,6 +58,7 @@ namespace Enemy
         #region Enemy Events
         protected virtual void OnKill()
         {
+            if (collider != null) collider.enabled = false;
             Destroy(gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
         }
@@ -78,6 +82,14 @@ namespace Enemy
         public void PlayAnimationByTrigger(AnimationType animationType)
         {
             _animationBase.PlayAnimationByTrigger(animationType);
+        }
+        #endregion
+
+        #region IDamageable implementations
+        public void Damage(float damage)
+        {
+            Debug.Log("Damage");
+            OnDamage(damage);
         }
         #endregion
     }

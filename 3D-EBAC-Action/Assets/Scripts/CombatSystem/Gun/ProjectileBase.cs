@@ -1,3 +1,4 @@
+using Interfaces;
 using UnityEngine;
 
 namespace CombatSystem.Gun
@@ -37,7 +38,9 @@ namespace CombatSystem.Gun
 
         private void OnCollisionEnter(Collision otherCollision)
         {
-        
+            var damageable = otherCollision.transform.GetComponent<IDamageable>();
+            if(damageable != null) damageable.Damage(damageAmount);
+            Destroy(gameObject);
         }
     }
 }    

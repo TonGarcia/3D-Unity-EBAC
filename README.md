@@ -198,6 +198,17 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    7. **Avoid loop animation**:
       1. Animator Tab (it can be acessed on `Project` tab or on the inspector `Component`)
       2. Select (**double click**) the `Death` (or other animation) on Animator tab > uncheck `Loop Time` and `Loop Pose`
+9. **COLLISION**:
+   1.  IDamageable: C# interface to scale/grow the project including same strategy methods/actions
+   2.  **Interface IMPORTANT USAGE**: instead of projectile testing collision with enemies, the projectile will check if the collided GameObject implements IDamageable
+       1.  retrieving damageable from collision: `var damageable = otherCollision.transform.GetComponent<IDamageable>();`
+       2.  checking if collision was against a IDamageable: `if(damageable != null) damageable.Damage(damageAmount);`
+   3.  To make `Projectile` "collisionable":
+       1.  add a RigidBody on this Prefab, rigidbody config:
+           1.  **disable** the `gravity`
+           2.  **freeze** the constraints (position and rotation)
+           3.  IF the projectile not visible it could mean the projectile is colliding with the player and it is destroyed
+           4.  **Avoid Double Kill Bug**: remove the Collider when it is Dead (check EnemyBase.cs Collider): `if (collider != null) collider.enabled = false;`
 
 
 
