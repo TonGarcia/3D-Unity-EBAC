@@ -209,6 +209,38 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
            2.  **freeze** the constraints (position and rotation)
            3.  IF the projectile not visible it could mean the projectile is colliding with the player and it is destroyed
            4.  **Avoid Double Kill Bug**: remove the Collider when it is Dead (check EnemyBase.cs Collider): `if (collider != null) collider.enabled = false;`
+10. **Enemies Particles**:
+    1.  Shader FX (flash color):
+        1.  Check FX helper that changes the Shader using Tweening `FlashColor.`
+        2.  Add it as component on the Enemy that contains the Mesh GameObject (`PFB_MonsterSlime_01`)
+        3.  Added the flash as cs attribute on the enemy script, so when hitted the flash method is called
+        4.  *To ref drag & drop the GameObject that has the Flash component on the attribute so it will be filled
+    2.  Particle System FX:
+        1.  on Hierarchy right click > Effects > Particle System
+        2.  Renderer
+            1.  Renderer Mode = Mesh
+            2.  Mesh = Sphere
+            3.  *Create a new `Material` file under `Art/Materials` folder
+                1.  > Material shader type will be `Standard`
+                2.  To achive the desired color check the `Albedo` and the `Emission` > `Color` (HDR)
+            4.  Drag & Drop the created Material to the Particle Renderer Material
+        3.  Emission:
+            1.  RATE OVER TIME = 0
+            2.  Burst (add item to list)
+                1.  gravity 1 (if zero it go up forever), as much gravity fast it falls
+        4.  Collision (to be bouncing on the ground) --> set World to be bouncing with anything
+            1.  bouncing  = 0 
+        5.  size over lifetime:
+            1.  check it and on the graph switch to size fall down
+        6.  Start Lifetime = 3
+        7.  Duration = 3
+        8.  Shape
+            1.  Shape: Sphere
+            2.  Radius: 0.3
+        9.  Simulation Space = World (to avoid elements to interact with it)
+        10. --> About how to start emitting these particles: on the code check `Enemy.cs` method `OnDamage()`: `if (particleSystem != null) particleSystem.Emit(15);`
+        11. **uncheck**: `Play On Awake` and `Looping`
+        12. Drag & Drop the particle system on the enemy attr
 
 
 

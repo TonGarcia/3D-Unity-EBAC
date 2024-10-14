@@ -1,6 +1,7 @@
 using Animation;
 using UnityEngine;
 using DG.Tweening;
+using FX;
 using Interfaces;
 using Unity.VisualScripting;
 
@@ -9,6 +10,8 @@ namespace Enemy
     public class EnemyBase : MonoBehaviour, IDamageable
     {
         public Collider collider;
+        public FlashColor flashColor;
+        public ParticleSystem particleSystem;
         public float startLife = 10f;
         [SerializeField] private float _currentLife;
 
@@ -65,11 +68,10 @@ namespace Enemy
 
         public void OnDamage(float damage)
         {
+            if (flashColor != null) flashColor.Flash();
+            if (particleSystem != null) particleSystem.Emit(15);
             _currentLife -= damage;
-            if (_currentLife <= 0)
-            {
-                Kill();
-            }
+            if (_currentLife <= 0) Kill();
         }
         #endregion
 
