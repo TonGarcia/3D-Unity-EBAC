@@ -272,7 +272,14 @@ Estou enviando também o projeto zipado, pois tivemos problemas com o github em 
 3. ✅ ShotGun (✅ Tecla2): tipo a Angle, só que com delay de 1 segundo
 
 ### Challenge Module 31 - Inimigos
-1. 
+1. ✅ ter 2 tipos de inimigos (um verde e um roxo)
+   1. ✅ verde
+   2. ✅ roxo (mais vida)
+2. ✅ os 2 inimigos tem que ter vida
+3. ✅ os 2 inimigos tem que ter estado de morte
+4. ✅ poder configurar quanto cada inimigo tem de vida
+5. ✅ ao ficar sem vida os inimigos devem morrer e ✅ tocar uma animação
+6. ✅ ao sofrerem dano tem que emitir as particulas
 
 # Rider BugFix
 
