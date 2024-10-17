@@ -178,7 +178,6 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 # Challenges
 
 ### Challenge Module 28
-
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
    --> tem um OnExit para parar de andar
@@ -190,7 +189,7 @@ Estou enviando também o projeto zipado, pois tivemos problemas com o github em 
 
 
 ### Challenge Module 29
-
+Cena principal: `Scenes/SCN_Main_3D`
 1. ✅ Os comandos AWSD estão funcionando com o Character Controller
 2. ✅ As animações foram adicionadas e com transição com o BlendTree
 3. ✅ Ao pressionar shift o personagem corre
@@ -200,7 +199,7 @@ Estou enviando também o projeto zipado, pois tivemos problemas com o github em 
 
 
 ### Challenge Module 30
-
+Cena principal: `Scenes/SCN_Main_3D`
 1. ✅ Adicionar 2 armas (MachineGun e ShotGun)
 2. ✅ MachineGun (✅ Tecla1): o intervalo entre as balas deve ser entre 0.2 segundos
 3. ✅ ShotGun (✅ Tecla2): tipo a Angle, só que com delay de 1 segundo
