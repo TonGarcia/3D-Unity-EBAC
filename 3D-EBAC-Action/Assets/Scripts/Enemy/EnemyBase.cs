@@ -33,7 +33,7 @@ namespace Enemy
         void Update()
         {
             // Debug
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 OnDamage(5f);
             }
