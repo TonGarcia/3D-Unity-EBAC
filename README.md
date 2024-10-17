@@ -175,10 +175,78 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
          4. place the canvas where want
          5. *in this project it will be a canvas on player back it head
 
+## Enemies
+
+1. Using events to trigger animations and state machine changes;
+2. Creating **SerializeField** to debug the current value on the EDITOR (it must be moved back to private to avoid errors);
+3. Created Legacy inut to debug on the Update method;
+4. **OnDamage** is implemented on the enemy(attacked), not on the player(attacker);
+5. --> Kill is not ToKill it is the enemy Death (fix on projects instead of on EBAC just to keep it suitable);
+6. **Spawn Animation**:
+   1. *It is using Born animation it should be named as Spawn animation as "Start" is already used in many wrong cases
+   2. There is a bool control var which could be used in case of changing the game processing levels like Low Resolution, High... to get **Performance** vs **Realism**
+7. Add a **BoxCollider** component to the enemy GameObject
+8. **ANIMATION**:
+   1. Select the PFB_Enemy GameObject > On the Inspector find the Animator > check the file referenced on the `Controller` attr of `Animator` component
+   2. Right click on the Animation and left click on `MAKE TRANSITION` > click on next Animation and it will create a transition arrow, click on the transition arrow and set the Trigger that will perform this change (Any State to Idle by Trigger Idle)... CREATE THE TRIGGERS to get it visible as options
+   3. *To check it working: Open `Animator` editor tab and check the desired animation
+   4. The **Scripts** animations Management will be implemented on the `Scripts/Animation/..cs`
+   5. --> bad smell on the animation change using loop
+   6. The `EnemyBase` method `OnKill` is waiting 3 seconds to destroy the object and while waiting it trigger the die animation:
+      1. `Destroy(gameObject, 3f);`
+      2. `PlayAnimationByTrigger(AnimationType.DEATH);`
+   7. **Avoid loop animation**:
+      1. Animator Tab (it can be acessed on `Project` tab or on the inspector `Component`)
+      2. Select (**double click**) the `Death` (or other animation) on Animator tab > uncheck `Loop Time` and `Loop Pose`
+9. **COLLISION**:
+   1.  IDamageable: C# interface to scale/grow the project including same strategy methods/actions
+   2.  **Interface IMPORTANT USAGE**: instead of projectile testing collision with enemies, the projectile will check if the collided GameObject implements IDamageable
+       1.  retrieving damageable from collision: `var damageable = otherCollision.transform.GetComponent<IDamageable>();`
+       2.  checking if collision was against a IDamageable: `if(damageable != null) damageable.Damage(damageAmount);`
+   3.  To make `Projectile` "collisionable":
+       1.  add a RigidBody on this Prefab, rigidbody config:
+           1.  **disable** the `gravity`
+           2.  **freeze** the constraints (position and rotation)
+           3.  IF the projectile not visible it could mean the projectile is colliding with the player and it is destroyed
+           4.  **Avoid Double Kill Bug**: remove the Collider when it is Dead (check EnemyBase.cs Collider): `if (collider != null) collider.enabled = false;`
+10. **Enemies Particles**:
+    1.  Shader FX (flash color):
+        1.  Check FX helper that changes the Shader using Tweening `FlashColor.`
+        2.  Add it as component on the Enemy that contains the Mesh GameObject (`PFB_MonsterSlime_01`)
+        3.  Added the flash as cs attribute on the enemy script, so when hitted the flash method is called
+        4.  *To ref drag & drop the GameObject that has the Flash component on the attribute so it will be filled
+    2.  Particle System FX:
+        1.  on Hierarchy right click > Effects > Particle System
+        2.  Renderer
+            1.  Renderer Mode = Mesh
+            2.  Mesh = Sphere
+            3.  *Create a new `Material` file under `Art/Materials` folder
+                1.  > Material shader type will be `Standard`
+                2.  To achive the desired color check the `Albedo` and the `Emission` > `Color` (HDR)
+            4.  Drag & Drop the created Material to the Particle Renderer Material
+        3.  Emission:
+            1.  RATE OVER TIME = 0
+            2.  Burst (add item to list)
+                1.  gravity 1 (if zero it go up forever), as much gravity fast it falls
+        4.  Collision (to be bouncing on the ground) --> set World to be bouncing with anything
+            1.  bouncing  = 0 
+        5.  size over lifetime:
+            1.  check it and on the graph switch to size fall down
+        6.  Start Lifetime = 3
+        7.  Duration = 3
+        8.  Shape
+            1.  Shape: Sphere
+            2.  Radius: 0.3
+        9.  Simulation Space = World (to avoid elements to interact with it)
+        10. --> About how to start emitting these particles: on the code check `Enemy.cs` method `OnDamage()`: `if (particleSystem != null) particleSystem.Emit(15);`
+        11. **uncheck**: `Play On Awake` and `Looping`
+        12. Drag & Drop the particle system on the enemy attr
+
+
+
 # Challenges
 
-### Challenge Module 28
-
+### Challenge Module 28 - Máquina de Estado
 Cena principal: `Scenes/SCN_Main_3D`
 Andar pra frente: pressione W
    --> tem um OnExit para parar de andar
@@ -189,8 +257,7 @@ Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/
 Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
 
 
-### Challenge Module 29
-
+### Challenge Module 29 - Animações e BlendTree
 1. ✅ Os comandos AWSD estão funcionando com o Character Controller
 2. ✅ As animações foram adicionadas e com transição com o BlendTree
 3. ✅ Ao pressionar shift o personagem corre
@@ -199,11 +266,20 @@ Link para a Tag do Módulo: https://github.com/TonGarcia/3D-Unity-EBAC/releases/
 Estou enviando também o projeto zipado, pois tivemos problemas com o github em atividades anteriores
 
 
-### Challenge Module 30
-
+### Challenge Module 30 - Armas e New Input System
 1. ✅ Adicionar 2 armas (MachineGun e ShotGun)
 2. ✅ MachineGun (✅ Tecla1): o intervalo entre as balas deve ser entre 0.2 segundos
 3. ✅ ShotGun (✅ Tecla2): tipo a Angle, só que com delay de 1 segundo
+
+### Challenge Module 31 - Inimigos
+1. ✅ ter 2 tipos de inimigos (um verde e um roxo)
+   1. ✅ verde
+   2. ✅ roxo (mais vida)
+2. ✅ os 2 inimigos tem que ter vida
+3. ✅ os 2 inimigos tem que ter estado de morte
+4. ✅ poder configurar quanto cada inimigo tem de vida
+5. ✅ ao ficar sem vida os inimigos devem morrer e ✅ tocar uma animação
+6. ✅ ao sofrerem dano tem que emitir as particulas
 
 # Rider BugFix
 
