@@ -32,6 +32,9 @@ namespace Enemy
             // start GameObject walk
             Vector3 targetPosition = waypoints[_index].transform.position;
             transform.position = Vector3.MoveTowards(currentPosition, targetPosition, SpeedDeltaTime());
+
+            // rotate the npc to loook at the waypoint location
+            transform.LookAt(waypoints[_index].transform.position);
         }
         #endregion
 

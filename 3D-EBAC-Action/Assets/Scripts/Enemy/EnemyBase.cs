@@ -83,6 +83,13 @@ namespace Enemy
             Debug.Log("Damage");
             OnDamage(damage);
         }
+        
+        public void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+            // create impact effect based on the given dir of the damage
+            transform.DOMove(transform.position - dir, .1f);
+        }
         #endregion
     }
 }

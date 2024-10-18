@@ -39,7 +39,16 @@ namespace CombatSystem.Gun
         private void OnCollisionEnter(Collision otherCollision)
         {
             var damageable = otherCollision.transform.GetComponent<IDamageable>();
-            if(damageable != null) damageable.Damage(damageAmount);
+            if (damageable != null)
+            {
+                // transform.position = projectile position
+                // otherCollision.transform.position = obj hit by the projectile
+                Vector3 dir = otherCollision.transform.position - transform.position;
+                //before normalized: (0,0,35) vector , after normalized: (0,0,1) vector
+                dir = -dir.normalized;
+                dir.y = 0;
+                damageable.Damage(damageAmount, dir);
+            }
             Destroy(gameObject);
         }
     }
