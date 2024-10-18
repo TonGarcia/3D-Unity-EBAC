@@ -28,16 +28,6 @@ namespace Enemy
         {
             Init();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            // Debug
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                OnDamage(5f);
-            }
-        }
         #endregion
 
         #region Enemy Helpers

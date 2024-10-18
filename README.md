@@ -175,7 +175,7 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
          4. place the canvas where want
          5. *in this project it will be a canvas on player back it head
 
-## Enemies
+## Enemies (base - anim + take dmg)
 
 1. Using events to trigger animations and state machine changes;
 2. Creating **SerializeField** to debug the current value on the EDITOR (it must be moved back to private to avoid errors);
@@ -242,6 +242,11 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
         11. **uncheck**: `Play On Awake` and `Looping`
         12. Drag & Drop the particle system on the enemy attr
 
+## Enemies (advanced AI + moves + atacks)
+
+1. WayPoints (enemies movements)
+   1. Check the created walk script: `EnemyWalk.cs` which inherited from ``EnemyBase`
+   2. 
 
 # Challenges
 
