@@ -15,8 +15,9 @@ namespace Enemy
 
         #region UnityEvents
         // Update is called once per frame
-        void Update()
+        public override void Update()
         {
+            base.Update();
             Vector3 currentPosition = transform.position;
             Vector3 currentWayPointPosition = waypoints[_index].transform.position;
             float distanceWaypointToEnemy = Vector3.Distance(transform.position, currentWayPointPosition);

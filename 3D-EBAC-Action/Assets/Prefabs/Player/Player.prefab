@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4875952104731428489}
   - component: {fileID: 7355297748395946958}
   - component: {fileID: 1406725706858253540}
+  - component: {fileID: 540775908189206549}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
   gravity: 9.8
   jumpForceSpeed: 7
   runSpeed: 2.5
+  flashColors: []
 --- !u!143 &7355297748395946958
 CharacterController:
   m_ObjectHideFlags: 0
@@ -103,6 +105,33 @@ MonoBehaviour:
   - {fileID: 2921207362875538456, guid: af5a2f3ba2476486e908c2306ef37bcd, type: 3}
   - {fileID: -3807698263027394776, guid: b7afa73f72ce1459d9975e688ecdfff0, type: 3}
   UIGunUpdaters: []
+--- !u!54 &540775908189206549
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155034160609216160}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2296851047385109769
 GameObject:
   m_ObjectHideFlags: 0

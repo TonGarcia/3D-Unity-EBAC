@@ -1,9 +1,9 @@
+using System;
 using Animation;
 using UnityEngine;
 using DG.Tweening;
 using FX;
 using Interfaces;
-using Unity.VisualScripting;
 
 namespace Enemy
 {
@@ -13,7 +13,10 @@ namespace Enemy
         public FlashColor flashColor;
         public ParticleSystem particleSystem;
         public float startLife = 10f;
+        public bool lookAtPlayer = false; 
+            
         [SerializeField] private float _currentLife;
+        private Player.Player _player;
 
         [Header("Animation Transition")]
         [SerializeField] private AnimationBase _animationBase;
@@ -22,11 +25,32 @@ namespace Enemy
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
-
+        
         #region Unity Events
         private void Awake()
         {
             Init();
+        }
+        
+        // Start is called before the first frame update
+        void Start()
+        {
+            _player = GameObject.FindObjectOfType<Player.Player>();
+        }
+
+        // Start is called before the first frame update
+        public virtual void Update()
+        {
+            if(lookAtPlayer) transform.LookAt(_player.transform.position);
+        }
+        
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player.Player p = collision.transform.GetComponent<Player.Player>();
+            if (p != null)
+            {
+                p.Damage(1);
+            }
         }
         #endregion
 

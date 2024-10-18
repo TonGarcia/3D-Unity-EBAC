@@ -244,18 +244,33 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 
 ## Enemies (advanced AI + moves + atacks)
 
-1. WayPoints (enemies movements)
+1. **WayPoints** (enemies movements)
    1. Check the created walk script: `EnemyWalk.cs` which inherited from ``EnemyBase`
       1. this first implementation is about waypoints which means to create points on the scene that the NPC will walk to
       2. it goes to a point if the distance is on accepted zone the target location (waypoint) will be the next of the list
       3. **IF** the NPC is lookoing to the wrong location/direction, just rotate the graphic GameObject so it will be looking at the correct target point
       4. the waypoints could be on the PFB character, but the GameDesigner may forget to add the waypoints and crash, so it is better to force GameDesigner to set WayPoints
          1. so created a new empty game object and added the waypoints and the character game object into it new empty game object
-2. To feel better the impact of hitting enemies:
+2. To feel better the **impact of hitting enemies**:
    1. each shoot that collide with the enemy should push the enemy:
       1. OnDame at EnemyBase script: `transform.position -= transform.forward;` => it just push forward, not check where it came from
       2. To calculate the damage direction check `ProjectileBase.cs` => `damageable.Damage(damageAmount, dir);`
       3. If the enemy go down the ground or move up to the sky check that the `y` must be zero like implemented on `ProjectileBase.cs`
+3. **Player collision Flash collor**:
+   1. check the updated on Flash.cs (onvalidate runs even on editor runtime)
+   2. it can be added by each part of the player body
+   3. The `Player` implements the `CharacterController` which use a different collider, so to be able to collide it is necessary to add Box Collider component
+   4. Created a EnemyGunBase
+   5. To **avoid enemies to kill each other**:
+      1. Create Tags
+      2. Apply the tags on the GameObjects
+      3. On each collision it test the tags
+      4. Check the `List<string> tagsToHit` on Projectile to check how it knows if the hit was on the desired target
+      5. variant projectile prefab created to be the projectile emited by the enemy and it aims the Player and the player aims the Enemey
+   6. **LookAt Player to follow**: 
+      1. Enemy looking to the Player: `if(lookAtPlayer) transform.LookAt(_player.transform.position);` check it on the `EnemyBase.cs` script
+      2. PS.: remember to check true the "LookAtPlayer" to activate the behaviour
+
 
 # Challenges
 
