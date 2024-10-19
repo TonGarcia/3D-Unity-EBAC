@@ -270,6 +270,10 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    6. **LookAt Player to follow**: 
       1. Enemy looking to the Player: `if(lookAtPlayer) transform.LookAt(_player.transform.position);` check it on the `EnemyBase.cs` script
       2. PS.: remember to check true the "LookAtPlayer" to activate the behaviour
+4. Creating **Boss**:
+   1. StateMachine with Enum check `Scripts/Enemies/Boss/BossBase.cs`
+   2. States on BossStates file with inner classes
+   3. `params` keyword means like *params on rails which means that all params will be appended on the var: `OnStateEnter(params object[] objs)`
 
 
 # Challenges

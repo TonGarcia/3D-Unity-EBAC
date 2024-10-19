@@ -61,13 +61,13 @@ namespace Company.StateMachine
              }
          }
      
-         public void SwitchState(T state, bool isBool = false)
+         public void SwitchState(T state, bool isBool = false, params object[] objs)
          {
              // Add a null check before accessing the dictionary
              if (dictionaryState != null && dictionaryState.ContainsKey(state))
              {
                  _currentState = dictionaryState[state];
-                 _currentState.OnStateEnter();
+                 _currentState.OnStateEnter(objs);
                  
                  // Trigger animation based on new state
                  TriggerAnimationForState(_currentState, isBool);

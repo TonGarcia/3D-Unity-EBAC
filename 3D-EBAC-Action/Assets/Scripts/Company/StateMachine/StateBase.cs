@@ -6,7 +6,7 @@ namespace Company.StateMachine
 {
     public class StateBase
     {
-        public virtual void OnStateEnter(object o = null)
+        public virtual void OnStateEnter(params object[] objs)
         {
             Debug.Log("OnStateEnter");
         }
@@ -25,9 +25,9 @@ namespace Company.StateMachine
 
     public class StateRunning : StateBase
     {
-        public override void OnStateEnter(object o = null)
+        public override void OnStateEnter(params object[] objs)
         {
-            base.OnStateEnter(o);
+            base.OnStateEnter(objs);
         }
     
         public override void OnStateExit()
@@ -38,9 +38,9 @@ namespace Company.StateMachine
 
     public class StateDead : StateBase
     {
-        public override void OnStateEnter(object o = null)
+        public override void OnStateEnter(params object[] objs)
         {
-            base.OnStateEnter(o);
+            base.OnStateEnter(objs);
         }
     }
 }
