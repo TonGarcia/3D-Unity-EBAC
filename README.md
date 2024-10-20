@@ -274,6 +274,22 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
    1. StateMachine with Enum check `Scripts/Enemies/Boss/BossBase.cs`
    2. States on BossStates file with inner classes
    3. `params` keyword means like *params on rails which means that all params will be appended on the var: `OnStateEnter(params object[] objs)`
+5. **Boss State Machine**:
+   1. File: `BossStates.cs`
+   2. Each inner class is a state (walk, idle...) of the GameObject component (enemy, boss, helper...)
+   3. Each state goal is to describe how the GameObject will treat on each state case
+   4. On the gameobject base, in this case the `BossBase.cs` is where the State Machine are started
+   5. There is a `callback` named as `onArrive` to know when an action has done and will be called when it ends, check `BossBase`.`onArrive`
+   6. Check the callback `OnArrive()` implementation on `BossStates.cs` and it is passed as `Action onArrive` param
+   7. The callback call/invoke is: `onArrive?.Invoke();` , `endCallback?.Invoke();`
+   8. The endCallback switch the state that started this new state creating the state machine switching loop
+   9. `HEALTH` & `DAMAGE` **Control**:
+      1.  `HealthBase` is to manage the Health on a specific script context => uses `CALLBACKS.EVENTS` strategy:
+          1.  `healthBase.OnKill += OnBossKill;`
+          2.  check `OnDamage?.Invoke(this);` as well
+          3.  *Remember to ref `HealthBase` on the `BossBase` component
+      2.  `EnemyBase` methods (OnKill, Kill, OnDamage, Damage) => implement the `HARD IMPLEMENTED` strategy directly on the Enemy Script
+          
 
 
 # Challenges
