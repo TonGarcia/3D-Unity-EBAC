@@ -26,6 +26,8 @@ namespace Enemy.Boss
         [Header("Attack")] 
         public int attackAmount = 5;
         public float timeBetweenAttacks = .5f;
+        public float attackEndScale = 1.1f;
+        public float attackScaleDuration = .1f;
         
         [Header("Movements")]
         public float speed = 5f;
@@ -36,16 +38,16 @@ namespace Enemy.Boss
         private StateMachine<BossAction> _stateMachine;
 
         #region Unity Events
-
         private void Awake()
         {
             Init();
             healthBase.OnKill += OnBossKill;
         }
+
         #endregion
 
         #region Helpers Methods
-        private void Init()
+        protected virtual void Init()
         {
             _stateMachine = new StateMachine<BossAction>();
             _stateMachine.Init();
@@ -54,6 +56,8 @@ namespace Enemy.Boss
             _stateMachine.RegisterStates(BossAction.WALK, new BossStateWalk());
             _stateMachine.RegisterStates(BossAction.ATTACK, new BossStateAttack());
             _stateMachine.RegisterStates(BossAction.DEATH, new BossStateDeath());
+
+            SwitchAttack();
         }
 
         private void OnBossKill(HealthBase h)
@@ -81,7 +85,7 @@ namespace Enemy.Boss
             while (attacks < attackAmount)
             {
                 attacks++;
-                transform.DOScale(1.1f, .1f).SetLoops(2, LoopType.Yoyo);
+                transform.DOScale(attackEndScale, attackScaleDuration).SetLoops(2, LoopType.Yoyo);
                 yield return new WaitForSeconds(timeBetweenAttacks);
             }
             endCallback?.Invoke();

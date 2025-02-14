@@ -332,6 +332,14 @@ Cena principal: `Scenes/SCN_Main_3D`
 5. ✅ ao ficar sem vida os inimigos devem morrer e ✅ tocar uma animação
 6. ✅ ao sofrerem dano tem que emitir as particulas
 
+### Challenge Module 32 - Diferentes Inimigos
+1. ⏱️ Ter mais ⏱️ 1 inimigo e ⏱️ 1 chefão (totalizar ✅ 3 inimigos + ⏱️ 1 chefão)
+   1. ✅ Inimigo 1 = anda nos checkpoints e é **rosa**
+   2. ✅ Inimigo 2 = fica parado em um local de difícil passagem para o player e é **verde**
+   3. ✅ Inimigo 3 = fica mirando o player e atirando nele e é **laranja**
+   4. ✅ Chefão 1 = ✅ é maior, ✅ tem muita vida (50 enquanto inimigos normais têm 10) ⏱️ atira rajada e é **roxo**
+2. ⏱️ chefão: ser maior e com mais vida
+
 # Rider BugFix
 
 To avoid file error while no source code on Rider, mainly when creating CustomEditors:
