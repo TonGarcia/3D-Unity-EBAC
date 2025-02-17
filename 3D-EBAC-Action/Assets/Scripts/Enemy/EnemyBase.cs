@@ -14,24 +14,24 @@ namespace Enemy
         public ParticleSystem particleSystem;
         public float startLife = 10f;
         public bool lookAtPlayer = false; 
-            
+
         [SerializeField] private float _currentLife;
         private Player.Player _player;
 
         [Header("Animation Transition")]
         [SerializeField] private AnimationBase _animationBase;
-        
+
         [Header("Spawn Animation")] 
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
-        
+
         #region Unity Events
         private void Awake()
         {
             Init();
         }
-        
+
         // Start is called before the first frame update
         void Start()
         {
@@ -43,7 +43,7 @@ namespace Enemy
         {
             if(lookAtPlayer) transform.LookAt(_player.transform.position);
         }
-        
+
         private void OnCollisionEnter(Collision collision)
         {
             Player.Player p = collision.transform.GetComponent<Player.Player>();

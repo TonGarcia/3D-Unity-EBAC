@@ -333,12 +333,22 @@ Cena principal: `Scenes/SCN_Main_3D`
 6. ✅ ao sofrerem dano tem que emitir as particulas
 
 ### Challenge Module 32 - Diferentes Inimigos
-1. ⏱️ Ter mais ⏱️ 1 inimigo e ⏱️ 1 chefão (totalizar ✅ 3 inimigos + ⏱️ 1 chefão)
+1. Ter 3 inimigos ✅ e ter 1 chefão ✅
    1. ✅ Inimigo 1 = anda nos checkpoints e é **rosa**
    2. ✅ Inimigo 2 = fica parado em um local de difícil passagem para o player e é **verde**
    3. ✅ Inimigo 3 = fica mirando o player e atirando nele e é **laranja**
-   4. ✅ Chefão 1 = ✅ é maior, ✅ tem muita vida (50 enquanto inimigos normais têm 10) ⏱️ atira rajada e é **roxo**
-2. ⏱️ chefão: ser maior e com mais vida
+   4. ✅ Chefão 1 = ✅ é maior, ✅ tem muita vida ⏱️ atira rajada e é **roxo**
+2. ⏱️ chefão: 
+   1. ✅ ser maior; 
+   2. ✅ com mais vida (tem 50 enquanto inimigos normais têm 10);
+   3. ✅ atira rajada e é **roxo**.
+   4. ✅ Deve receber dano;
+   5. ⏱️ Deve morrer;
+   6. ⏱️ Deve ter animação de sofrer dano;
+3. ✅ Trigger para fazer os inimigos aparecerem:
+   1. ✅ criar o objeto gráfico onde o player deve ir para acionar o trigger
+   2. ✅ criar um script que é executado quando acontece o trigger e faz os inimigos aparecerem
+
 
 # Rider BugFix
 
@@ -348,8 +358,8 @@ To avoid file error while no source code on Rider, mainly when creating CustomEd
 *IF ToArray error, remember to add: `using System.Linq;`
 
 # UnityTemplate
-1. [Unity GitHub Repo Template](https://github.com/TonGarcia/UnityTemplate)
-2. [Unity GitLab GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
+1. [Unity **GitHub** Repo Template](https://github.com/TonGarcia/UnityTemplate)
+2. [Unity **GitLab** GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
 
 *Remember to copy and paste `.gitattributes` & `.gitignore` into it project sub folder.    
 **Remember to protect it new repository branchs

@@ -8,6 +8,7 @@ namespace Health
         public float startLife = 10f;
         public bool destroyOnKill = false;
         [SerializeField] private float _currentLife;
+        public float CurrentLife => _currentLife; // Read-only property
 
         public Action<HealthBase> OnKill;
         public Action<HealthBase> OnDamage;
