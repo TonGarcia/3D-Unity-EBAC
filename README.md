@@ -338,13 +338,13 @@ Cena principal: `Scenes/SCN_Main_3D`
    2. ✅ Inimigo 2 = fica parado em um local de difícil passagem para o player e é **verde**
    3. ✅ Inimigo 3 = fica mirando o player e atirando nele e é **laranja**
    4. ✅ Chefão 1 = ✅ é maior, ✅ tem muita vida ⏱️ atira rajada e é **roxo**
-2. ⏱️ chefão: 
+2. ✅ chefão: 
    1. ✅ ser maior; 
    2. ✅ com mais vida (tem 50 enquanto inimigos normais têm 10);
    3. ✅ atira rajada e é **roxo**.
    4. ✅ Deve receber dano;
-   5. ⏱️ Deve morrer;
-   6. ⏱️ Deve ter animação de sofrer dano;
+   5. ✅ Deve morrer;
+   6. ✅ Deve ter animação de sofrer dano;
 3. ✅ Trigger para fazer os inimigos aparecerem:
    1. ✅ criar o objeto gráfico onde o player deve ir para acionar o trigger
    2. ✅ criar um script que é executado quando acontece o trigger e faz os inimigos aparecerem
