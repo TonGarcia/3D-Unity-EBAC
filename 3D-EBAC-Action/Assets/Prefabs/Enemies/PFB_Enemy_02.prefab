@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6353793015780454506}
-  - component: {fileID: 7223827825266914502}
   - component: {fileID: 191942009517599458}
   - component: {fileID: 8892798613882564950}
+  - component: {fileID: 1702192435487321091}
+  - component: {fileID: 3153436234028397885}
   m_Layer: 0
   m_Name: PFB_Enemy_02
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,27 +37,6 @@ Transform:
   - {fileID: 3196661298046580276}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &7223827825266914502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4551819473477385007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99ff0a9ed7f694b798a73330bea71241, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collider: {fileID: 191942009517599458}
-  flashColor: {fileID: 9030588681074939570}
-  particleSystem: {fileID: 6070385713189676503}
-  startLife: 15
-  _currentLife: 0
-  _animationBase: {fileID: 8892798613882564950}
-  startAnimationDuration: 0.2
-  startAnimationEase: 27
-  startWithBornAnimation: 1
 --- !u!65 &191942009517599458
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100,6 +80,57 @@ MonoBehaviour:
     trigger: Attack
   - AnimationType: 4
     trigger: Death
+--- !u!114 &1702192435487321091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551819473477385007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e64eee933e854034a960eb80e44e5a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 191942009517599458}
+  flashColor: {fileID: 9030588681074939570}
+  particleSystem: {fileID: 6070385713189676503}
+  startLife: 15
+  _currentLife: 0
+  _animationBase: {fileID: 8892798613882564950}
+  startAnimationDuration: 0.2
+  startAnimationEase: 27
+  startWithBornAnimation: 1
+  waypoints: []
+  minDistance: 1
+  speed: 1
+--- !u!54 &3153436234028397885
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4551819473477385007}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &7690898673267145303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5130,6 +5161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2276584177443604278}
+  skinnedMeshRenderer: {fileID: 0}
   color: {r: 1, g: 0, b: 0, a: 1}
   duration: 0.1
   shaderAttr: _EmissionColor

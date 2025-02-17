@@ -1,10 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
+using FX;
+using Interfaces;
 using UnityEngine;
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IDamageable
     {
         #region Unity Reference Attributes
         public CharacterController characterController;
@@ -23,6 +24,12 @@ namespace Player
         public float runSpeed = 1.5f;
         #endregion
 
+        #region Damage
+        [Header("Flash")] 
+        public List<FlashColor> flashColors;
+        #endregion
+        
+        #region Unity Events
         // Start is called before the first frame update
         void Start()
         {
@@ -73,5 +80,18 @@ namespace Player
             // activate the animations by changing the Parameter values
             animator.SetBool("Run", inputAxisVertical != 0);
         }
+        #endregion
+
+        #region IDamageable implementations
+        public void Damage(float damage)
+        {
+            flashColors.ForEach(i => i.Flash());
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            Damage(damage);
+        }
+        #endregion
     }
 }

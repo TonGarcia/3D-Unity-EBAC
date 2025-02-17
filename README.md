@@ -175,7 +175,7 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
          4. place the canvas where want
          5. *in this project it will be a canvas on player back it head
 
-## Enemies
+## Enemies (base - anim + take dmg)
 
 1. Using events to trigger animations and state machine changes;
 2. Creating **SerializeField** to debug the current value on the EDITOR (it must be moved back to private to avoid errors);
@@ -242,6 +242,55 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
         11. **uncheck**: `Play On Awake` and `Looping`
         12. Drag & Drop the particle system on the enemy attr
 
+## Enemies (advanced AI + moves + atacks)
+
+1. **WayPoints** (enemies movements)
+   1. Check the created walk script: `EnemyWalk.cs` which inherited from ``EnemyBase`
+      1. this first implementation is about waypoints which means to create points on the scene that the NPC will walk to
+      2. it goes to a point if the distance is on accepted zone the target location (waypoint) will be the next of the list
+      3. **IF** the NPC is lookoing to the wrong location/direction, just rotate the graphic GameObject so it will be looking at the correct target point
+      4. the waypoints could be on the PFB character, but the GameDesigner may forget to add the waypoints and crash, so it is better to force GameDesigner to set WayPoints
+         1. so created a new empty game object and added the waypoints and the character game object into it new empty game object
+2. To feel better the **impact of hitting enemies**:
+   1. each shoot that collide with the enemy should push the enemy:
+      1. OnDame at EnemyBase script: `transform.position -= transform.forward;` => it just push forward, not check where it came from
+      2. To calculate the damage direction check `ProjectileBase.cs` => `damageable.Damage(damageAmount, dir);`
+      3. If the enemy go down the ground or move up to the sky check that the `y` must be zero like implemented on `ProjectileBase.cs`
+3. **Player collision Flash collor**:
+   1. check the updated on Flash.cs (onvalidate runs even on editor runtime)
+   2. it can be added by each part of the player body
+   3. The `Player` implements the `CharacterController` which use a different collider, so to be able to collide it is necessary to add Box Collider component
+   4. Created a EnemyGunBase
+   5. To **avoid enemies to kill each other**:
+      1. Create Tags
+      2. Apply the tags on the GameObjects
+      3. On each collision it test the tags
+      4. Check the `List<string> tagsToHit` on Projectile to check how it knows if the hit was on the desired target
+      5. variant projectile prefab created to be the projectile emited by the enemy and it aims the Player and the player aims the Enemey
+   6. **LookAt Player to follow**: 
+      1. Enemy looking to the Player: `if(lookAtPlayer) transform.LookAt(_player.transform.position);` check it on the `EnemyBase.cs` script
+      2. PS.: remember to check true the "LookAtPlayer" to activate the behaviour
+4. Creating **Boss**:
+   1. StateMachine with Enum check `Scripts/Enemies/Boss/BossBase.cs`
+   2. States on BossStates file with inner classes
+   3. `params` keyword means like *params on rails which means that all params will be appended on the var: `OnStateEnter(params object[] objs)`
+5. **Boss State Machine**:
+   1. File: `BossStates.cs`
+   2. Each inner class is a state (walk, idle...) of the GameObject component (enemy, boss, helper...)
+   3. Each state goal is to describe how the GameObject will treat on each state case
+   4. On the gameobject base, in this case the `BossBase.cs` is where the State Machine are started
+   5. There is a `callback` named as `onArrive` to know when an action has done and will be called when it ends, check `BossBase`.`onArrive`
+   6. Check the callback `OnArrive()` implementation on `BossStates.cs` and it is passed as `Action onArrive` param
+   7. The callback call/invoke is: `onArrive?.Invoke();` , `endCallback?.Invoke();`
+   8. The endCallback switch the state that started this new state creating the state machine switching loop
+   9. `HEALTH` & `DAMAGE` **Control**:
+      1.  `HealthBase` is to manage the Health on a specific script context => uses `CALLBACKS.EVENTS` strategy:
+          1.  `healthBase.OnKill += OnBossKill;`
+          2.  check `OnDamage?.Invoke(this);` as well
+          3.  *Remember to ref `HealthBase` on the `BossBase` component
+      2.  `EnemyBase` methods (OnKill, Kill, OnDamage, Damage) => implement the `HARD IMPLEMENTED` strategy directly on the Enemy Script
+          
+
 
 # Challenges
 
@@ -283,6 +332,24 @@ Cena principal: `Scenes/SCN_Main_3D`
 5. ✅ ao ficar sem vida os inimigos devem morrer e ✅ tocar uma animação
 6. ✅ ao sofrerem dano tem que emitir as particulas
 
+### Challenge Module 32 - Diferentes Inimigos
+1. Ter 3 inimigos ✅ e ter 1 chefão ✅
+   1. ✅ Inimigo 1 = anda nos checkpoints e é **rosa**
+   2. ✅ Inimigo 2 = fica parado em um local de difícil passagem para o player e é **verde**
+   3. ✅ Inimigo 3 = fica mirando o player e atirando nele e é **laranja**
+   4. ✅ Chefão 1 = ✅ é maior, ✅ tem muita vida ⏱️ atira rajada e é **roxo**
+2. ✅ chefão: 
+   1. ✅ ser maior; 
+   2. ✅ com mais vida (tem 50 enquanto inimigos normais têm 10);
+   3. ✅ atira rajada e é **roxo**.
+   4. ✅ Deve receber dano;
+   5. ✅ Deve morrer;
+   6. ✅ Deve ter animação de sofrer dano;
+3. ✅ Trigger para fazer os inimigos aparecerem:
+   1. ✅ criar o objeto gráfico onde o player deve ir para acionar o trigger
+   2. ✅ criar um script que é executado quando acontece o trigger e faz os inimigos aparecerem
+
+
 # Rider BugFix
 
 To avoid file error while no source code on Rider, mainly when creating CustomEditors:
@@ -291,8 +358,8 @@ To avoid file error while no source code on Rider, mainly when creating CustomEd
 *IF ToArray error, remember to add: `using System.Linq;`
 
 # UnityTemplate
-1. [Unity GitHub Repo Template](https://github.com/TonGarcia/UnityTemplate)
-2. [Unity GitLab GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
+1. [Unity **GitHub** Repo Template](https://github.com/TonGarcia/UnityTemplate)
+2. [Unity **GitLab** GBaaS (Firebase+PlayFab+GBaas) Template Sample](https://gitlab.com/kpihunters/GBaaS/unity-gbaas-template)
 
 *Remember to copy and paste `.gitattributes` & `.gitignore` into it project sub folder.    
 **Remember to protect it new repository branchs

@@ -6,28 +6,28 @@ namespace Company.StateMachine
 {
     public class StateBase
     {
-        public virtual void OnStateEnter(object o = null)
+        public virtual void OnStateEnter(params object[] objs)
         {
-            Debug.Log("OnStateEnter");
+            // Debug.Log("OnStateEnter");
         }
 
         public virtual void OnStateStay()
         {
-            Debug.Log("OnStateStay");
+            // Debug.Log("OnStateStay");
         }
 
         public virtual void OnStateExit()
         {
-            Debug.Log("OnStateExit");
+            // Debug.Log("OnStateExit");
         }
     
     }
 
     public class StateRunning : StateBase
     {
-        public override void OnStateEnter(object o = null)
+        public override void OnStateEnter(params object[] objs)
         {
-            base.OnStateEnter(o);
+            base.OnStateEnter(objs);
         }
     
         public override void OnStateExit()
@@ -38,9 +38,9 @@ namespace Company.StateMachine
 
     public class StateDead : StateBase
     {
-        public override void OnStateEnter(object o = null)
+        public override void OnStateEnter(params object[] objs)
         {
-            base.OnStateEnter(o);
+            base.OnStateEnter(objs);
         }
     }
 }

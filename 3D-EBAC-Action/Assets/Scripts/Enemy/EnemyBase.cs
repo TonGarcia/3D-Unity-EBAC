@@ -1,9 +1,9 @@
+using System;
 using Animation;
 using UnityEngine;
 using DG.Tweening;
 using FX;
 using Interfaces;
-using Unity.VisualScripting;
 
 namespace Enemy
 {
@@ -13,11 +13,14 @@ namespace Enemy
         public FlashColor flashColor;
         public ParticleSystem particleSystem;
         public float startLife = 10f;
+        public bool lookAtPlayer = false; 
+
         [SerializeField] private float _currentLife;
+        private Player.Player _player;
 
         [Header("Animation Transition")]
         [SerializeField] private AnimationBase _animationBase;
-        
+
         [Header("Spawn Animation")] 
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
@@ -29,13 +32,24 @@ namespace Enemy
             Init();
         }
 
-        // Update is called once per frame
-        void Update()
+        // Start is called before the first frame update
+        void Start()
         {
-            // Debug
-            if (Input.GetKeyDown(KeyCode.K))
+            _player = GameObject.FindObjectOfType<Player.Player>();
+        }
+
+        // Start is called before the first frame update
+        public virtual void Update()
+        {
+            if(lookAtPlayer) transform.LookAt(_player.transform.position);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player.Player p = collision.transform.GetComponent<Player.Player>();
+            if (p != null)
             {
-                OnDamage(5f);
+                p.Damage(1);
             }
         }
         #endregion
@@ -92,6 +106,13 @@ namespace Enemy
         {
             Debug.Log("Damage");
             OnDamage(damage);
+        }
+        
+        public void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+            // create impact effect based on the given dir of the damage
+            transform.DOMove(transform.position - dir, .1f);
         }
         #endregion
     }
