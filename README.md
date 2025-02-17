@@ -348,6 +348,7 @@ Cena principal: `Scenes/SCN_Main_3D`
 3. ✅ Trigger para fazer os inimigos aparecerem:
    1. ✅ criar o objeto gráfico onde o player deve ir para acionar o trigger
    2. ✅ criar um script que é executado quando acontece o trigger e faz os inimigos aparecerem
+   3. ✅ reactivated the trigger to show the enemies
 
 
 # Rider BugFix
