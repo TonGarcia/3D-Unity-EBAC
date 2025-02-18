@@ -1,9 +1,10 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Health
 {
-    public class HealthBase : MonoBehaviour
+    public class HealthBase : MonoBehaviour, IDamageable
     {
         public float startLife = 10f;
         public bool destroyOnKill = false;
@@ -45,6 +46,11 @@ namespace Health
             _currentLife -= damage;
             if (_currentLife <= 0) Kill();
             OnDamage?.Invoke(this);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            Damage(damage);
         }
     }    
 }

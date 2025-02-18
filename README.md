@@ -290,7 +290,16 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
           3.  *Remember to ref `HealthBase` on the `BossBase` component
       2.  `EnemyBase` methods (OnKill, Kill, OnDamage, Damage) => implement the `HARD IMPLEMENTED` strategy directly on the Enemy Script
           
+## Player LifeCycle
 
+1. Player Life/Health:
+   1. Damage: same IDamageable strategy as applied on enemies
+   2. `Player.cs`: ```healthBase.OnDamage += Damage;``` 
+2. Player LifeCycle (respawn, death, etc)
+   1. Spawn:
+   2. Respawn:
+   3. Death: 
+   4. CheckPoints: 
 
 # Challenges
 
