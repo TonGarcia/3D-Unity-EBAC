@@ -9,7 +9,7 @@ namespace CombatSystem.Gun
 {
     public class GunShootLimit : GunBase
     {
-        public List<UIUpdater> UIUpdaters;
+        public List<UIUpdater> uiUpdaters;
         
         public float maxShoot = 5;
         public float timeToRecharge = 1f;
@@ -63,7 +63,7 @@ namespace CombatSystem.Gun
             {
                 // time get the time running on screen to wait time reloading (fake waiting) 
                 time += Time.deltaTime;
-                UIUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));
+                uiUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));
                 
                 // it waits the end of the frame because it can be really fast and do not be visible to the player
                 yield return new WaitForEndOfFrame();
@@ -75,12 +75,21 @@ namespace CombatSystem.Gun
         
         private void UpdateUI()
         {
-            UIUpdaters.ForEach(i => i.UpdateValue(maxShoot, _currentShoots));
+            uiUpdaters.ForEach(i => i.UpdateValue(maxShoot, _currentShoots));
         }
 
         private void GetAllUIs()
         {
-            UIUpdaters = GameObject.FindObjectsOfType<UIUpdater>().ToList();
+            //uiUpdaters = GameObject.FindObjectsOfType<UIUpdater>().ToList();
+            uiUpdaters ??= new List<UIUpdater>();
+            GameObject[] ammoObjects = GameObject.FindGameObjectsWithTag("GunAmmo");
+
+            foreach (GameObject ammoObject in ammoObjects)
+            {
+                UIUpdater uiUpdater = ammoObject.GetComponent<UIUpdater>();
+                if (uiUpdater != null) uiUpdaters.Add(uiUpdater);
+                else Debug.LogWarning("GameObject with tag 'GunAmmo' is missing the UIUpdater component: " + ammoObject.name);
+            }
         }
     }
 }
