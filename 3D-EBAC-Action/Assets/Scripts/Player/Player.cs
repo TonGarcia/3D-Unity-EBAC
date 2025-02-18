@@ -15,6 +15,7 @@ namespace Player
         public Animator animator;
         public KeyCode jumpKeyCode = KeyCode.Space;
         public KeyCode runKeyCode = KeyCode.LeftShift;
+        public List<Collider> colliders;
         #endregion
 
         #region Speed Modifier Attributes
@@ -137,6 +138,7 @@ namespace Player
             if (healthBase.CurrentLife > 0) return;
             if (_isDead) return;
             if (collider != null) collider.enabled = false;
+            if (colliders != null) colliders.ForEach(i => i.enabled = false);
             if (health.destroyOnKill) Destroy(gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
             _isDead = true;
