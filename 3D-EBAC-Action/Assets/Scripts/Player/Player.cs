@@ -133,8 +133,7 @@ namespace Player
         protected virtual void OnKill()
         {
             if (collider != null) collider.enabled = false;
-            // TODO: test if to destroy the Player GameObject:
-            // Destroy(gameObject, 3f);
+            if (healthBase.destroyOnKill) Destroy(gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
         }
         #endregion
