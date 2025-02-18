@@ -301,6 +301,10 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
       3. Set a transition from `Any State` to `PlayerDeathState`
       4. Select the `Transition` it will display the `Inspector` > add the `PlayerDeathState` trigger on the `Conditions` attr
       5. Ps.: the `AnimationBase` >> `animationSetups` add element > Type DEATH and the trigger string `PlayerDeathState`
+      6. Ps.: the player has 2 colliders to be disabled: 1. BoxCollider and 2. CharacterController Collider
+   4. Health Bar UI:
+      1. Added on `HealthBase` script
+      2. 
 2. Player LifeCycle (respawn, death, etc)
    1. Spawn:
    2. Respawn:

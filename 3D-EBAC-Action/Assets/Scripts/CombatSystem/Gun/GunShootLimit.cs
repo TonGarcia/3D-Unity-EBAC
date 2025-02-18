@@ -9,7 +9,7 @@ namespace CombatSystem.Gun
 {
     public class GunShootLimit : GunBase
     {
-        public List<UIGunUpdater> UIGunUpdaters;
+        public List<UIUpdater> UIUpdaters;
         
         public float maxShoot = 5;
         public float timeToRecharge = 1f;
@@ -63,7 +63,7 @@ namespace CombatSystem.Gun
             {
                 // time get the time running on screen to wait time reloading (fake waiting) 
                 time += Time.deltaTime;
-                UIGunUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));
+                UIUpdaters.ForEach(i => i.UpdateValue(time/timeToRecharge));
                 
                 // it waits the end of the frame because it can be really fast and do not be visible to the player
                 yield return new WaitForEndOfFrame();
@@ -75,12 +75,12 @@ namespace CombatSystem.Gun
         
         private void UpdateUI()
         {
-            UIGunUpdaters.ForEach(i => i.UpdateValue(maxShoot, _currentShoots));
+            UIUpdaters.ForEach(i => i.UpdateValue(maxShoot, _currentShoots));
         }
 
         private void GetAllUIs()
         {
-            UIGunUpdaters = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();
+            UIUpdaters = GameObject.FindObjectsOfType<UIUpdater>().ToList();
         }
     }
 }

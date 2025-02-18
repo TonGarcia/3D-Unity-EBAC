@@ -52,5 +52,10 @@ namespace Health
         {
             Damage(damage);
         }
+
+        public void UpdateUI()
+        {
+            
+        }
     }    
 }

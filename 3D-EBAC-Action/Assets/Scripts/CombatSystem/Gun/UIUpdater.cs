@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CombatSystem.Gun
 {
-    public class UIGunUpdater : MonoBehaviour
+    public class UIUpdater : MonoBehaviour
     {
         [Header("Animation")] 
         public float duration = .1f;

@@ -10,7 +10,7 @@ namespace Player
         public GunBase gunBase;
         public Transform gunPosition;
         public List<GunBase> inventory;
-        public List<UIGunUpdater> UIGunUpdaters;
+        public List<UIUpdater> UIUpdaters;
         
         private GunBase _currentGun;
 
@@ -44,7 +44,7 @@ namespace Player
 
         private void CancelSwitchGun(int gunIndex)
         {
-            UIGunUpdaters.ForEach(i => i.UpdateValue(1));
+            UIUpdaters.ForEach(i => i.UpdateValue(1));
         }
         
         private void StartShoot()
@@ -61,7 +61,7 @@ namespace Player
         
         private void GetAllUIs()
         {
-            UIGunUpdaters = GameObject.FindObjectsOfType<UIGunUpdater>().ToList();
+            UIUpdaters = GameObject.FindObjectsOfType<UIUpdater>().ToList();
         }
     }    
 }
