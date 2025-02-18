@@ -294,7 +294,13 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
 
 1. Player Life/Health:
    1. Damage: same IDamageable strategy as applied on enemies
-   2. `Player.cs`: ```healthBase.OnDamage += Damage;``` 
+   2. `Player.cs` life decrement: ```healthBase.OnDamage += Damage;``` 
+   3. Player Death Animation: `Player.cs` >> ``` PlayAnimationByTrigger(AnimationType.DEATH); ```
+      1. The Animation was added on the Animator graph
+      2. On Animator Graph add `Death Trigger` : `PlayerDeathState`
+      3. Set a transition from `Any State` to `PlayerDeathState`
+      4. Select the `Transition` it will display the `Inspector` > add the `PlayerDeathState` trigger on the `Conditions` attr
+      5. Ps.: the `AnimationBase` >> `animationSetups` add element > Type DEATH and the trigger string `PlayerDeathState`
 2. Player LifeCycle (respawn, death, etc)
    1. Spawn:
    2. Respawn:

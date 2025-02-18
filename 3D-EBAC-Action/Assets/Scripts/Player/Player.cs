@@ -34,6 +34,7 @@ namespace Player
         public ParticleSystem particleSystem;
         public Collider collider;
         [SerializeField] private AnimationBase _animationBase;
+        private bool _isDead = false;
         #endregion
         
         #region Unity Events
@@ -47,6 +48,7 @@ namespace Player
         {
             OnValidate();
             healthBase.OnDamage += Damage;
+            healthBase.OnDamage += OnKill;
         }
 
         private void OnValidate()
@@ -127,14 +129,17 @@ namespace Player
             if (particleSystem != null) particleSystem.Emit(15);
 
             healthBase.Damage(damage);
-            if (healthBase.CurrentLife <= 0) OnKill();
+            if (healthBase.CurrentLife <= 0) OnKill(healthBase);
         }
-        
-        protected virtual void OnKill()
+
+        protected virtual void OnKill(HealthBase health)
         {
+            if (healthBase.CurrentLife > 0) return;
+            if (_isDead) return;
             if (collider != null) collider.enabled = false;
-            if (healthBase.destroyOnKill) Destroy(gameObject, 3f);
+            if (health.destroyOnKill) Destroy(gameObject, 3f);
             PlayAnimationByTrigger(AnimationType.DEATH);
+            _isDead = true;
         }
         #endregion
 
