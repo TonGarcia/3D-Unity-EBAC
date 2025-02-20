@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CombatSystem.Gun;
 using Interfaces;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Health
         public bool destroyOnKill = false;
         [SerializeField] private float _currentLife;
         public float CurrentLife => _currentLife; // Read-only property 
-        public UIUpdater uiUpdater;
+        public List<UIUpdater> uiUpdaters;
 
         public Action<HealthBase> OnKill;
         public Action<HealthBase> OnDamage;
@@ -58,9 +59,9 @@ namespace Health
 
         private void UpdateUI()
         {
-            if (uiUpdater != null)
+            if (uiUpdaters != null)
             {
-                uiUpdater.UpdateValue((float) _currentLife/startLife);
+                uiUpdaters.ForEach(i => i.UpdateValue((float) _currentLife/startLife));
             }
         }
     }    

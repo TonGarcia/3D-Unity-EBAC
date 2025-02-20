@@ -304,7 +304,9 @@ The StateMachine will control the GameMode, like Lara Croft when on ground the a
       6. Ps.: the player has 2 colliders to be disabled: 1. BoxCollider and 2. CharacterController Collider
    4. Health Bar UI:
       1. Added on `HealthBase` script
-      2. 
+      2. Refactored the `UIUpdater.cs` to be able to update any sprite (heath, ammo...)
+      3. If the circle is filling, but bar is not, so it is necessary to change the sprite `ImageType` to `Filled`
+         1. in the case of bar it is necessary to be `Horizontal`
 2. Player LifeCycle (respawn, death, etc)
    1. Spawn:
    2. Respawn:
