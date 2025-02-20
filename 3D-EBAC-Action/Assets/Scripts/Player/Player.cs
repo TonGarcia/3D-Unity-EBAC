@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Animation;
+using DG.Tweening;
 using FX;
+using Health;
 using Interfaces;
 using UnityEngine;
 
@@ -12,6 +15,7 @@ namespace Player
         public Animator animator;
         public KeyCode jumpKeyCode = KeyCode.Space;
         public KeyCode runKeyCode = KeyCode.LeftShift;
+        public List<Collider> colliders;
         #endregion
 
         #region Speed Modifier Attributes
@@ -25,8 +29,13 @@ namespace Player
         #endregion
 
         #region Damage
-        [Header("Flash")] 
+        [Header("Health")]
         public List<FlashColor> flashColors;
+        public HealthBase healthBase;
+        public ParticleSystem particleSystem;
+        public Collider collider;
+        [SerializeField] private AnimationBase _animationBase;
+        private bool _isDead = false;
         #endregion
         
         #region Unity Events
@@ -34,6 +43,18 @@ namespace Player
         void Start()
         {
         
+        }
+
+        private void Awake()
+        {
+            OnValidate();
+            healthBase.OnDamage += Damage;
+            healthBase.OnKill += OnKill;
+        }
+
+        private void OnValidate()
+        {
+            if(healthBase == null) healthBase = GetComponent<HealthBase>();
         }
 
         // Update is called once per frame
@@ -86,11 +107,48 @@ namespace Player
         public void Damage(float damage)
         {
             flashColors.ForEach(i => i.Flash());
+            OnDamage(damage);
+        }
+
+        public void Damage(HealthBase health)
+        {
+            flashColors.ForEach(i => i.Flash());
         }
 
         public void Damage(float damage, Vector3 dir)
         {
+            // create impact effect based on the given dir of the damage
+            transform.DOMove(transform.position - dir, .1f);
             Damage(damage);
+        }
+        #endregion
+
+        #region PlayerEvents
+        public void OnDamage(float damage)
+        {
+            flashColors.ForEach(i => i.Flash());
+            if (particleSystem != null) particleSystem.Emit(15);
+
+            healthBase.Damage(damage);
+            if (healthBase.CurrentLife <= 0) OnKill(healthBase);
+        }
+
+        protected virtual void OnKill(HealthBase health)
+        {
+            if (healthBase.CurrentLife > 0) return;
+            if (_isDead) return;
+            if (collider != null) collider.enabled = false;
+            if (colliders != null) colliders.ForEach(i => i.enabled = false);
+            if (health.destroyOnKill) Destroy(gameObject, 3f);
+            PlayAnimationByTrigger(AnimationType.DEATH);
+            _isDead = true;
+        }
+        #endregion
+
+        #region ANIMATIONS
+        public void PlayAnimationByTrigger(AnimationType animationType)
+        {
+            _animationBase.PlayAnimationByTrigger(animationType);
         }
         #endregion
     }

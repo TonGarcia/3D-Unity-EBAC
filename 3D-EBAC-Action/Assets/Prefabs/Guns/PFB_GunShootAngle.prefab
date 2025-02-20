@@ -102,6 +102,8 @@ MonoBehaviour:
   coolDownShoots: 0.3
   playerDirectionReference: {fileID: 0}
   speed: 50
+  UIUpdaters:
+  - {fileID: 0}
   maxShoot: 5
   timeToRecharge: 1
   amountPerShoot: 4

@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
+using CombatSystem.Gun;
+using Interfaces;
 using UnityEngine;
 
 namespace Health
 {
-    public class HealthBase : MonoBehaviour
+    public class HealthBase : MonoBehaviour, IDamageable
     {
         public float startLife = 10f;
         public bool destroyOnKill = false;
         [SerializeField] private float _currentLife;
-        public float CurrentLife => _currentLife; // Read-only property
+        public float CurrentLife => _currentLife; // Read-only property 
+        public List<UIUpdater> uiUpdaters;
 
         public Action<HealthBase> OnKill;
         public Action<HealthBase> OnDamage;
@@ -44,7 +48,21 @@ namespace Health
         {
             _currentLife -= damage;
             if (_currentLife <= 0) Kill();
+            UpdateUI();
             OnDamage?.Invoke(this);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            Damage(damage);
+        }
+
+        private void UpdateUI()
+        {
+            if (uiUpdaters != null)
+            {
+                uiUpdaters.ForEach(i => i.UpdateValue((float) _currentLife/startLife));
+            }
         }
     }    
 }
